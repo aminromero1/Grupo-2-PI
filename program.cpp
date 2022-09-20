@@ -2,56 +2,70 @@
 #include<string>
 using namespace std;
 
-// Opcion 1
-void agregarCategoria(char Categoria){}//utilizar un cin para pedir el nombre de la categoria y guardar
-
-char categoriaPrincipal[];//array categoria principal
-
-char modificarCategoria(char categoriaPrincipal []){}/*usar cin y for para modificar */
-
-char eliminarCategoria(char categoriaPrincipal []){}/*usar cin y for para eliminar */
-
-const int cantClientes=10;
-char agregarPrestatario(char prestatario[cantClientes]){} /*usar cin y for para agregar */
-
-char modificarPrestatario(char prestatario[cantClientes]){} /*usar cin y for para modificar */
-
-char eliminarPrestatario(char prestatario[cantClientes]){} /*usar cin y for para eliminar */
-
-// Opcion 2
-
-char agregarPrestamo(){}//utilizar un cin para pedir el nombre de la categoria y guardar
-
-char modificarPrestamo(){}//utilizar un cin para pedir el nombre de la categoria y guardar
-
-char eliminarPrestamo(){}//utilizar un cin para pedir el nombre de la categoria y eliminar
-
-char devolverPrestamo(){}//utilizar un cin para pedir el nombre de la categoria y guardar
-
-// Opcion 3
-
-char cantObjetosPorCategoria(){}// utilizar un cin para pedir el nombre de la categoria y mostrar la cantidad de objetos
-
-char listadoPrestamosPorCategoria(){}// utilizar un cin para pedir el nombre de la categoria y mostrar los prestamos
-
-char listadoPrestamosPorPrestatario(){}//   utilizar un cin para pedir el nombre del prestatario y mostrar los prestamos
-
-char prestatariosConobjetosPrestados(){}// mostrar los prestatarios que tienen objetos prestados
-
-//***********************
-
-// funcion principal
-int main(){
+//Variables globales fuera de la funcion principal
     int opcionPrincipal;//variable que almacena el numero de la opción del menu principal
     char opcionCase1;
     char opcionCase2;
     char opcionCase3;
-    const int cantClientes=10;//dimensión fisica
-    int codigo=cantClientes;//la cantidad de código de prestatario es la misma que la cantidad de prestatarios
-    char categorias;
-    string nombreyApellido;
-    char prestamo;
+
+    //variables opcion categorias #############################################################################################################
+
+    char categorias[cantCategorias];//sacar de main y   poner dentro de una función asi no ocupa espacio
+    const int cantCategorias=50;//dimesion fisica
     char prestatario[cantClientes]; //sacar de main y   poner dentro de una función asi no ocupa espacio
+    const int cantClientes=50;//dimensión fisica
+    int codigo=cantClientes+1;//la cantidad de código de prestatario es la misma que la cantidad de prestatarios -1 (inicia en 0)
+
+    //variables opcion prestamo ###############################################################################################################
+
+    const int cantPrestamos=50;
+    char prestamos[cantPrestamos];
+
+    //variables opcion consultas ##############################################################################################################
+
+    const int cantObjetos=50;
+    char objetosPrestados[cantObjetos];
+
+     string nombreyApellido;
+
+// Opcion 1 = Administrar y consultar Categorías y Prestatarios
+
+void agregarCategoria(char Categorias [cantCategorias]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+
+char modificarCategoria(char categorias [cantCategorias]){}//usar cin y for para modificar
+
+char eliminarCategoria(char categorias [cantCategorias]){}//usar cin y for para eliminar
+
+char agregarPrestatario(char prestatario[cantClientes]){} //usar cin y for para agregar
+
+char modificarPrestatario(char prestatario[cantClientes]){} //usar cin y for para modificar
+
+char eliminarPrestatario(char prestatario[cantClientes]){} //usar cin y for para eliminar
+
+// Opcion 2 = Administrar Préstamos
+
+char agregarPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+
+char modificarPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+
+char eliminarPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y eliminar
+
+char devolverPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+
+// Opcion 3 = Consultar Préstamos
+
+char cantObjetosPorCategoria(char objetosPrestados[cantObjetos]){}// utilizar un cin para pedir el nombre de la categoria y mostrar la cantidad de objetos
+
+char listadoPrestamosPorCategoria(char objetosPrestados[cantObjetos]){}// utilizar un cin para pedir el nombre de la categoria y mostrar los prestamos
+
+char listadoPrestamosPorPrestatario(char prestamos[cantPrestamos]){}//   utilizar un cin para pedir el nombre del prestatario y mostrar los prestamos
+
+char prestatariosConobjetosPrestados(char prestatario[cantClientes]){}// mostrar los prestatarios que tienen objetos prestados
+
+//#############################################################################################################################################
+
+// funcion principal
+int main(){
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
             cout << "2. Administrar Préstamos" << endl;
