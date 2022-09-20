@@ -1,6 +1,10 @@
 #include <iostream>
 #include<string>
 using namespace std;
+void agregarCategoria(char Categoria){}//utilizar un cin para pedir el nombre de la categoria y guardar
+char categoriaPrincipal[];//array categoria principal
+char modificarCategoria(char categoriaPrincipal []){}/*usar cin y for para modificar */
+
 int main(){
     int opcionPrincipal;//variable que almacena el numero de la opción del menu principal
     char opcionCase1;
