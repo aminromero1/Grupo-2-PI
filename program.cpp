@@ -1,7 +1,6 @@
 #include <iostream>
 #include<string>
 using namespace std;
-
 int main(){
     int opcionPrincipal;//variable que almacena el numero de la opción del menu principal
     char opcionCase1;
