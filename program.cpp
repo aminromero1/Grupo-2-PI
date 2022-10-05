@@ -51,62 +51,61 @@ string nombreyApellido;
 
 void agregarCategoria(char categorias [cantCategorias]){
     cout << "Agregar categoria" << endl;
-
 }
 
-char modificarCategoria(char categorias [cantCategorias]){
+void modificarCategoria(char categorias [cantCategorias]){
     cout << "Modificar categoria" << endl;
 }
 
-char eliminarCategoria(char categorias [cantCategorias]){
+void eliminarCategoria(char categorias [cantCategorias]){
     cout << "Eliminar categoria" << endl;
 }
 
-char agregarPrestatario(char prestatario[cantClientes]){
+void agregarPrestatario(char prestatario[cantClientes]){
     cout << "Agregar prestatario" << endl;
 }
 
-char modificarPrestatario(char prestatario[cantClientes]){
+void modificarPrestatario(char prestatario[cantClientes]){
     cout << "Modificar prestatario" << endl;
 }
 
-char eliminarPrestatario(char prestatario[cantClientes]){
+void eliminarPrestatario(char prestatario[cantClientes]){
     cout << "Eliminar prestatario" << endl;
 } 
 
 // Opcion 2 = Administrar Préstamos
 
-char agregarPrestamo(char prestamos[cantPrestamos]){
+void agregarPrestamo(char prestamos[cantPrestamos]){
     cout << "Agregar prestamo" << endl;
 }
 
-char modificarPrestamo(char prestamos[cantPrestamos]){
+void modificarPrestamo(char prestamos[cantPrestamos]){
     cout << "Modificar prestamo" << endl;
 }
 
-char eliminarPrestamo(char prestamos[cantPrestamos]){
+void eliminarPrestamo(char prestamos[cantPrestamos]){
     cout << "Eliminar prestamo" << endl;
 }
 
-char devolverPrestamo(char prestamos[cantPrestamos]){
+void devolverPrestamo(char prestamos[cantPrestamos]){
     cout << "Devolver prestamo" << endl;
 }
 
 // Opcion 3 = Consultar Préstamos
 
-char cantObjetosPorCategoria(char objetosPrestados[cantObjetos]){
+void cantObjetosPorCategoria(char objetosPrestados[cantObjetos]){
     cout << "Cantidad de objetos por categoria" << endl;
 }
 
-char listadoPrestamosPorCategoria(char objetosPrestados[cantObjetos]){
+void listadoPrestamosPorCategoria(char objetosPrestados[cantObjetos]){
     cout << "Listado de prestamos por categoria" << endl;
 }
 
-char listadoPrestamosPorPrestatario(char prestamos[cantPrestamos]){
+void listadoPrestamosPorPrestatario(char prestamos[cantPrestamos]){
     cout << "Listado de prestamos por prestatario" << endl;
 }
 
-char prestatariosConobjetosPrestados(char prestatario[cantClientes]){
+void prestatariosConobjetosPrestados(char prestatario[cantClientes]){
     cout << "Prestatarios con objetos prestados" << endl;
 }
 
