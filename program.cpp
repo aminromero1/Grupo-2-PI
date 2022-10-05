@@ -21,91 +21,77 @@ struct Prestamo{
     string description;
     bool estado;
 };
-
 // ***********************************************
+// Variables
 int opcionPrincipal;
-char opcionCase1;
-char opcionCase2;
-char opcionCase3;
+char opcionCase;
 
-//variables opcion categorias #############################################################################################################
-char categorias[cantCategorias];
-const int cantCategorias=50;//dimesion fisica
-int codigoCat=cantCategorias+1;//el codigo de categoria es la misma que la cantidad de categorias -1 (inicia en 0)
-char prestatario[cantClientes];
-const int cantClientes=50;//dimensión fisica
-int codigoPres=cantClientes+1;//la cantidad de código de prestatario es la misma que la cantidad de prestatarios -1 (inicia en 0)
+string prestamos[15];
 
-//variables opcion prestamo ###############################################################################################################
-const int cantPrestamos=50;
-char prestamos[cantPrestamos];
+string prestatarios[15];
 
-//variables opcion consultas ##############################################################################################################
-const int cantObjetos=50;
-char objetosPrestados[cantObjetos];
-
-string nombreyApellido;
+string categorias[15];
 
 // ***********************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
-void agregarCategoria(char categorias [cantCategorias]){
+void agregarCategoria(){
     cout << "Agregar categoria" << endl;
 }
 
-void modificarCategoria(char categorias [cantCategorias]){
+void modificarCategoria(){
     cout << "Modificar categoria" << endl;
 }
 
-void eliminarCategoria(char categorias [cantCategorias]){
+void eliminarCategoria(){
     cout << "Eliminar categoria" << endl;
 }
 
-void agregarPrestatario(char prestatario[cantClientes]){
+void agregarPrestatario(){
     cout << "Agregar prestatario" << endl;
 }
 
-void modificarPrestatario(char prestatario[cantClientes]){
+void modificarPrestatario(){
     cout << "Modificar prestatario" << endl;
 }
 
-void eliminarPrestatario(char prestatario[cantClientes]){
+void eliminarPrestatario(){
     cout << "Eliminar prestatario" << endl;
 } 
 
 // Opcion 2 = Administrar Préstamos
 
-void agregarPrestamo(char prestamos[cantPrestamos]){
+void agregarPrestamo(){
     cout << "Agregar prestamo" << endl;
 }
 
-void modificarPrestamo(char prestamos[cantPrestamos]){
+void modificarPrestamo(){
     cout << "Modificar prestamo" << endl;
 }
 
-void eliminarPrestamo(char prestamos[cantPrestamos]){
+void eliminarPrestamo(){
     cout << "Eliminar prestamo" << endl;
 }
 
-void devolverPrestamo(char prestamos[cantPrestamos]){
+void devolverPrestamo(){
     cout << "Devolver prestamo" << endl;
 }
 
 // Opcion 3 = Consultar Préstamos
 
-void cantObjetosPorCategoria(char objetosPrestados[cantObjetos]){
+void cantObjetosPorCategoria(){
     cout << "Cantidad de objetos por categoria" << endl;
 }
 
-void listadoPrestamosPorCategoria(char objetosPrestados[cantObjetos]){
+void listadoPrestamosPorCategoria(){
     cout << "Listado de prestamos por categoria" << endl;
 }
 
-void listadoPrestamosPorPrestatario(char prestamos[cantPrestamos]){
+void listadoPrestamosPorPrestatario(){
     cout << "Listado de prestamos por prestatario" << endl;
 }
 
-void prestatariosConobjetosPrestados(char prestatario[cantClientes]){
+void prestatariosConobjetosPrestados(){
     cout << "Prestatarios con objetos prestados" << endl;
 }
 
@@ -133,99 +119,72 @@ int main(){
                     cout << "  E) Modificar prestatario" << endl;
                     cout << "  F) Eliminar prestatario" << endl;
                     cout << "ingrese la opcion: ";
-                    cin >> opcionCase1;
-                    switch (tolower((opcionCase1)))
+                    cin >> opcionCase;
+                    switch (tolower((opcionCase)))
                     {
                     case 'a':
-                        cout << "usted eligio la op 1" << endl; // sacar los cout y poner las funciones
-                        agregarCategoria(categorias); // el parametro categoria lo completa el usuario por teclado en el cout
-                        cout<<"ingrese el nombre de la nueva categoria: ";
-                        cin>>categorias;
+                        cout << "usted eligio la op 1" << endl;
+                        agregarCategoria();
                         break;
                     case 'b':
                         cout << "usted eligio la op 2" << endl;
-                        modificarCategoria(categorias);// el parametro categoria lo completa el usuario por teclado en el cout
-                        //haria un switch para preguntar si desea ver las categorias existentes
-                        cout<<"ingrese el nombre de la categoria a modificar: ";
-                        cin>>categorias;
+                        modificarCategoria();
                         break;
                     case 'c':
                         cout << "usted eligio la op 3" << endl;
-                        eliminarCategoria(categorias);// el parametro categoria lo completa el usuario por teclado en el cout
-                        //haria un switch para preguntar si desea ver las categorias existentes
-                        cout<<"ingrese el nombre de la categoria a eliminar: ";
-                        cin>>categorias;
+                        eliminarCategoria();                       
                         break;
                     case 'd':
                         cout << "usted eligio la op 4" << endl;
-                        agregarPrestatario(prestatarioN, prestatarioP);// el parametro prestatario lo completa el usuario por teclado en el cout
-                        cout<<"ingrese el nombre del nuevo prestatario: ";
-                        cin>>prestatarioN;//poner toupper para dejar en mayuscula la primer letra
-                        cout<<"ingrese el apellido del nuevo prestatario: ";
-                        cin>>prestatarioP;//poner toupper para dejar en mayuscula la primer letra
+                        agregarPrestatario();
                         break;
                     case 'e':
                         cout << "usted eligio la op 5" << endl;
-                        modificarPrestatario(prestatario);// el parametro prestatario lo completa el usuario por teclado en el cout
-                        //haria un switch para preguntar si desea ver los prestatarios existentes
-                        cout<<"ingrese el nombre de el prestatario a modificar: ";
-                        cin>>prestatario;
+                        modificarPrestatario();
                         break;
                     case 'f':
                         cout << "usted eligio la op 6" << endl;
-                        eliminarPrestatario(prestatario);// el parametro prestatario lo completa el usuario por teclado en el cout
-                        //haria un switch para preguntar si desea ver los prestatarios existentes
-                        cout<<"ingrese el nombre de el prestatario a eliminar: ";
-                        cin>>prestatario;
+                        eliminarPrestatario();
                         break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-                } while (opcionCase1 != 'a', opcionCase1 != 'b', opcionCase1 != 'c', opcionCase1 != 'd', opcionCase1 != 'e', opcionCase1 != 'f');
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase != 'e', opcionCase != 'f');
                 break;
             case 2:
                 do
                 {
-                    cout << "  Administrar Préstamos" << endl; // AGREAGAR SWITCH ctrl c + ctrl v
+                    cout << "  Administrar Préstamos" << endl;
                     cout << "  A) Agregar préstamo" << endl;
                     cout << "  B) Modificar préstamo" << endl;
                     cout << "  C) Eliminar préstamo" << endl;
                     cout << "  D) Devolver préstamo" << endl;
                     cout << "ingrese la opcion: ";
-                    cin >> opcionCase2;
-                    switch (tolower((opcionCase2)))
+                    cin >> opcionCase;
+                    switch (tolower((opcionCase)))
                     {
                     case 'a':
                         cout << "usted eligio la op 1" << endl;
-                        agregarPrestamo(prestamos);//el parametro prestamos lo completa el usuario por teclado en el cout
-                        cout<<"ingrese el nombre de el nuevo prestamo: ";
-                        cin>>prestamos;
+                        agregarPrestamo();                     
                         break;
                     case 'b':
                         cout <<"usted eligio la op 2"<< endl;
-                        modificarPrestamo(prestamos);//el parametro prestamos lo completa el usuario por teclado en el cout
-                        //haria un switch para preguntar si desea ver los prestamos existentes
-                        cout<<"ingrese el nombre de el prestamo a modificar: ";
-                        cin>>prestamos;
+                        modificarPrestamo();
                         break;
                     case 'c':
                         cout << "usted eligio la op 3" << endl;
-                        eliminarPrestamo(prestamos);//el parametro prestamos lo completa el usuario por teclado en el cout
-                        //haria un switch para preguntar si desea ver los prestamos existentes
-                        cout<<"ingrese el nombre de el prestamo a eliminar: ";
-                        cin>>prestamos;
+                        eliminarPrestamo();
                         break;
                     case 'd':
                         cout << "usted eligio la op 4" << endl;
-                        devolverPrestamo(prestamos);//el parametro prestamos lo completa el usuario por teclado en el cout
+                        devolverPrestamo();
                         break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-
-                } while (opcionCase2 != 'a', opcionCase2 != 'b', opcionCase2 != 'c', opcionCase2 != 'd');
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd');
                 break;
             case 3:
                 do
@@ -236,30 +195,30 @@ int main(){
                     cout << "  C) Listado de préstamos ordenados por categoría o prestatario" << endl;
                     cout << "  D) Listar todos los prestatarios que tienen al menos un objeto prestado" << endl;
                     cout << "ingrese la opcion: ";
-                    cin >> opcionCase3;
-                    switch (tolower((opcionCase3)))
+                    cin >> opcionCase;
+                    switch (tolower((opcionCase)))
                     {
                     case 'a':
-                        cout << "usted eligio la op 1" << endl; // sacar los cout y poner las funciones
-                        cantObjetosPorCategoria(objetosPrestados);//el parametro objetosPrestados lo completa el usuario por teclado en el cout
+                        cout << "usted eligio la op 1" << endl;
+                        cantObjetosPorCategoria();
                         break;
                     case 'b':
                         cout << "usted eligio la op 2" << endl;
-                        listadoPrestamosPorCategoria(objetosPrestados);//el parametro objetosPrestados lo completa el usuario por teclado en el cout
+                        listadoPrestamosPorCategoria();
                         break;
                     case 'c':
                         cout << "usted eligio la op 3" << endl;
-                        listadoPrestamosPorPrestatario(prestamos);//el parametro prestamos lo completa el usuario por teclado en el cout
+                        listadoPrestamosPorPrestatario();
                         break;
                     case 'd':
                         cout << "usted eligio la op 4" << endl;
-                        prestatariosConobjetosPrestados(prestatario);//el parametro prestatario lo completa el usuario por teclado en el cout
+                        prestatariosConobjetosPrestados();
                         break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-                } while (opcionCase3 != 'a', opcionCase3 != 'b', opcionCase3 != 'c', opcionCase3 != 'd');
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd');
                     break;
             default:
                 cout << "POR FAVOR INGRESE UNA OPCION VALIDA" << endl;
