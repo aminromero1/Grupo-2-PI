@@ -1,69 +1,116 @@
 #include <iostream>
-#include<string>
+#include <string>
 using namespace std;
 
-//Variables globales fuera de la funcion principal
-    int opcionPrincipal;//variable que almacena el numero de la opción del menu principal
-    char opcionCase1;
-    char opcionCase2;
-    char opcionCase3;
+// ****************************************
+// Structs
+struct Categoria{
+    int codigoCategoria;
+    string descriptcion;
+};
 
-    //variables opcion categorias #############################################################################################################
+struct Prestatario{
+    int codigoPrestatario;
+    string nombre;
+    string apellido;
+};
 
-    char categorias[cantCategorias];//sacar de main y   poner dentro de una función asi no ocupa espacio
-    const int cantCategorias=50;//dimesion fisica
-    int codigoCat=cantCcategorias+1;//el codigo de categoria es la misma que la cantidad de categorias -1 (inicia en 0)
-    char prestatario[cantClientes]; //sacar de main y   poner dentro de una función asi no ocupa espacio
-    const int cantClientes=50;//dimensión fisica
-    int codigoPres=cantClientes+1;//la cantidad de código de prestatario es la misma que la cantidad de prestatarios -1 (inicia en 0)
+struct Prestamo{
+    struct Categoria categoria;
+    struct Prestatario prestatario;
+    string description;
+    bool estado;
+};
 
-    //variables opcion prestamo ###############################################################################################################
+// ***********************************************
+int opcionPrincipal;
+char opcionCase1;
+char opcionCase2;
+char opcionCase3;
 
-    const int cantPrestamos=50;
-    char prestamos[cantPrestamos];
+//variables opcion categorias #############################################################################################################
+char categorias[cantCategorias];
+const int cantCategorias=50;//dimesion fisica
+int codigoCat=cantCategorias+1;//el codigo de categoria es la misma que la cantidad de categorias -1 (inicia en 0)
+char prestatario[cantClientes];
+const int cantClientes=50;//dimensión fisica
+int codigoPres=cantClientes+1;//la cantidad de código de prestatario es la misma que la cantidad de prestatarios -1 (inicia en 0)
 
-    //variables opcion consultas ##############################################################################################################
+//variables opcion prestamo ###############################################################################################################
+const int cantPrestamos=50;
+char prestamos[cantPrestamos];
 
-    const int cantObjetos=50;
-    char objetosPrestados[cantObjetos];
+//variables opcion consultas ##############################################################################################################
+const int cantObjetos=50;
+char objetosPrestados[cantObjetos];
 
-     string nombreyApellido;
+string nombreyApellido;
 
+// ***********************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
-void agregarCategoria(char categorias [cantCategorias]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+void agregarCategoria(char categorias [cantCategorias]){
+    cout << "Agregar categoria" << endl;
 
-char modificarCategoria(char categorias [cantCategorias]){}//usar cin y for para modificar
+}
 
-char eliminarCategoria(char categorias [cantCategorias]){}//usar cin y for para eliminar
+char modificarCategoria(char categorias [cantCategorias]){
+    cout << "Modificar categoria" << endl;
+}
 
-char agregarPrestatario(char prestatario[cantClientes], char prestatario[cantClientes]){} //usar cin y for para agregar
+char eliminarCategoria(char categorias [cantCategorias]){
+    cout << "Eliminar categoria" << endl;
+}
 
-char modificarPrestatario(char prestatario[cantClientes]){} //usar cin y for para modificar
+char agregarPrestatario(char prestatario[cantClientes]){
+    cout << "Agregar prestatario" << endl;
+}
 
-char eliminarPrestatario(char prestatario[cantClientes]){} //usar cin y for para eliminar
+char modificarPrestatario(char prestatario[cantClientes]){
+    cout << "Modificar prestatario" << endl;
+}
+
+char eliminarPrestatario(char prestatario[cantClientes]){
+    cout << "Eliminar prestatario" << endl;
+} 
 
 // Opcion 2 = Administrar Préstamos
 
-char agregarPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+char agregarPrestamo(char prestamos[cantPrestamos]){
+    cout << "Agregar prestamo" << endl;
+}
 
-char modificarPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+char modificarPrestamo(char prestamos[cantPrestamos]){
+    cout << "Modificar prestamo" << endl;
+}
 
-char eliminarPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y eliminar
+char eliminarPrestamo(char prestamos[cantPrestamos]){
+    cout << "Eliminar prestamo" << endl;
+}
 
-char devolverPrestamo(char prestamos[cantPrestamos]){}//utilizar un cin para pedir el nombre de la categoria y guardar
+char devolverPrestamo(char prestamos[cantPrestamos]){
+    cout << "Devolver prestamo" << endl;
+}
 
 // Opcion 3 = Consultar Préstamos
 
-char cantObjetosPorCategoria(char objetosPrestados[cantObjetos]){}// utilizar un cin para pedir el nombre de la categoria y mostrar la cantidad de objetos
+char cantObjetosPorCategoria(char objetosPrestados[cantObjetos]){
+    cout << "Cantidad de objetos por categoria" << endl;
+}
 
-char listadoPrestamosPorCategoria(char objetosPrestados[cantObjetos]){}// utilizar un cin para pedir el nombre de la categoria y mostrar los prestamos
+char listadoPrestamosPorCategoria(char objetosPrestados[cantObjetos]){
+    cout << "Listado de prestamos por categoria" << endl;
+}
 
-char listadoPrestamosPorPrestatario(char prestamos[cantPrestamos]){}//   utilizar un cin para pedir el nombre del prestatario y mostrar los prestamos
+char listadoPrestamosPorPrestatario(char prestamos[cantPrestamos]){
+    cout << "Listado de prestamos por prestatario" << endl;
+}
 
-char prestatariosConobjetosPrestados(char prestatario[cantClientes]){}// mostrar los prestatarios que tienen objetos prestados
+char prestatariosConobjetosPrestados(char prestatario[cantClientes]){
+    cout << "Prestatarios con objetos prestados" << endl;
+}
 
-//#############################################################################################################################################
+//***############################################################################################################################################
 
 // funcion principal
 int main(){
