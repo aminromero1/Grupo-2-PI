@@ -37,62 +37,83 @@ string categorias[15];
 
 void agregarCategoria(){
     cout << "Agregar categoria" << endl;
+    //pide al usuario cargar una categoria
 }
 
 void modificarCategoria(){
     cout << "Modificar categoria" << endl;
+    //muestra todas las categorias existentes
+    //el usuario selecciona la categoria a modificar
 }
 
 void eliminarCategoria(){
     cout << "Eliminar categoria" << endl;
+    //muestra todas las categorias existentes
+    //el usuario selecciona la categoria a eliminar
 }
 
 void agregarPrestatario(){
     cout << "Agregar prestatario" << endl;
+    //pide al usuario cargar un prestatario
 }
 
 void modificarPrestatario(){
     cout << "Modificar prestatario" << endl;
+    //muestra todos los prestatarios existentes
+    //el usuario selecciona el prestatario a modificar
 }
 
 void eliminarPrestatario(){
     cout << "Eliminar prestatario" << endl;
+    //muestra todos los prestatarios existentes
+    //el usuario selecciona el prestatario a eliminar
 } 
 
 // Opcion 2 = Administrar Préstamos
 
 void agregarPrestamo(){
     cout << "Agregar prestamo" << endl;
+    //pide al usuario cargar un prestamo
 }
 
 void modificarPrestamo(){
     cout << "Modificar prestamo" << endl;
+    //muestra todas los prestamos existentes
+    //el usuario selecciona el prestamo a modificar
 }
 
 void eliminarPrestamo(){
     cout << "Eliminar prestamo" << endl;
+    //muestra todas los prestamos existentes
+    //el usuario selecciona el prestamo a eliminar
 }
 
 void devolverPrestamo(){
     cout << "Devolver prestamo" << endl;
+    //muestra todas los prestamos existentes
+    //se modifica el estado del prestamo seleccionado
 }
 
 // Opcion 3 = Consultar Préstamos
 
 void cantObjetosPorCategoria(){
     cout << "Cantidad de objetos por categoria" << endl;
+    //muestra muestra todos los objetos existentes en cada categoria
 }
 
 void listadoPrestamosPorCategoria(){
     cout << "Listado de prestamos por categoria" << endl;
+    //muestra el listado de objetos por categoria
 }
 
 void listadoPrestamosPorPrestatario(){
     cout << "Listado de prestamos por prestatario" << endl;
+    //muestra el listado de prestamos por prestatario
 }
 
 void prestatariosConobjetosPrestados(){
     cout << "Prestatarios con objetos prestados" << endl;
+    //muestra un listado de prestatarios que tengan uno o mas objetos prestados
 }
 
 //***############################################################################################################################################
@@ -132,7 +153,7 @@ int main(){
                         break;
                     case 'c':
                         cout << "usted eligio la op 3" << endl;
-                        eliminarCategoria();                       
+                        eliminarCategoria();                  
                         break;
                     case 'd':
                         cout << "usted eligio la op 4" << endl;
@@ -165,7 +186,7 @@ int main(){
                     switch (tolower((opcionCase)))
                     {
                     case 'a':
-                        cout << "usted eligio la op 1" << endl;
+                        cout <<"usted eligio la op 1"<< endl;
                         agregarPrestamo();                     
                         break;
                     case 'b':
