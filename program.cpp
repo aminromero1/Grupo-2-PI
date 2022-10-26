@@ -6,7 +6,7 @@ using namespace std;
 // Structs
 struct Categoria{
     int codigoCategoria;
-    string descriptcion;
+    string descripcion;
 };
 
 struct Prestatario{
@@ -18,7 +18,7 @@ struct Prestatario{
 struct Prestamo{
     struct Categoria categoria;
     struct Prestatario prestatario;
-    string description;
+    string descripcion;
     bool estado;
 };
 // ***********************************************
@@ -30,14 +30,21 @@ string prestamos[15];
 
 string prestatarios[15];
 
-string categorias[15];
+Categoria categorias[15];
 
 // ***********************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
 void agregarCategoria(){
     cout << "Agregar categoria" << endl;
-    //pide al usuario cargar una categoria
+    //rellena el struct Categoria y lo guarda en el array categorias
+    Categoria categoria;
+    cout << "Ingrese el codigo de la categoria: ";
+    cin >> categoria.codigoCategoria;
+    cout << "Ingrese la descripcion de la categoria: ";
+    cin >> categoria.descripcion ;
+    //guardar en el array
+    
 }
 
 void modificarCategoria(){
