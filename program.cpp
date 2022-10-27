@@ -25,26 +25,30 @@ struct Prestamo{
 // Variables
 int opcionPrincipal;
 char opcionCase;
+string descripcion;
 
-string prestamos[15];
+int dlCategorias = 0;
+int dlprestamos = 0;
+int dlpreatatarios = 0;
+int df=15;
 
-string prestatarios[15];
-
-Categoria categorias[15];
-
+Prestatario prestatarios[15];
+Prestamo prestamos[15];
+Categoria categorias[15]; //categoria struct, categoriaS array
+//dentro de categoria hay descrip y codigo
 // ***********************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
-void agregarCategoria(){
-    cout << "Agregar categoria" << endl;
-    //rellena el struct Categoria y lo guarda en el array categorias
-    Categoria categoria;
-    cout << "Ingrese el codigo de la categoria: ";
-    cin >> categoria.codigoCategoria;
-    cout << "Ingrese la descripcion de la categoria: ";
-    cin >> categoria.descripcion ;
-    //guardar en el array
-    
+string agregarCategoria(categorias, dlCategorias){
+    cout<<"ingrese la descripcion de la categoria: ";
+    cin>>descripcion;
+    for(int i=0; i<descripcion.length(); i++){
+        descripcion[i]=toupper(descripcion[i]);
+    }
+    Categoria[dlCategorias].descripcion= descripcion;
+    Categoria.codigoCategoria=dlCategorias;
+    dlCategorias++;
+    return Categoria.codigoCategoria;
 }
 
 void modificarCategoria(){
@@ -127,6 +131,37 @@ void prestatariosConobjetosPrestados(){
 
 // funcion principal
 int main(){
+struct Categoria{
+    int codigoCategoria;
+    string descripcion;
+};
+
+struct Prestatario{
+    int codigoPrestatario;
+    string nombre;
+    string apellido;
+};
+
+struct Prestamo{
+    struct Categoria categoria;
+    struct Prestatario prestatario;
+    string descripcion;
+    bool estado;
+};
+
+int opcionPrincipal;
+char opcionCase;
+string descripcion;
+
+int dlCategorias = 0;
+int dlprestamos = 0;
+int dlpreatatarios = 0;
+int df=15;
+
+Prestatario prestatarios[15];
+Prestamo prestamos[15];
+Categoria categorias[15];
+//########################################################################################################
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
             cout << "2. Administrar Préstamos" << endl;
@@ -151,8 +186,8 @@ int main(){
                     switch (tolower((opcionCase)))
                     {
                     case 'a':
-                        cout << "usted eligio la op 1" << endl;
-                        agregarCategoria();
+                        agregarCategoria(categorias, dlCategorias);
+                        cout<<agregarCategoria(categorias, dlCategorias);
                         break;
                     case 'b':
                         cout << "usted eligio la op 2" << endl;
