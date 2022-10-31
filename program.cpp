@@ -31,6 +31,7 @@ int dlCategorias = 0;
 int dlprestamos = 0;
 int dlpreatatarios = 0;
 int df=15;
+const int MAX=15;
 
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
@@ -39,16 +40,13 @@ Categoria categorias[15]; //categoria struct, categoriaS array
 // ***********************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
-string agregarCategoria(categorias, dlCategorias){
-    cout<<"ingrese la descripcion de la categoria: ";
-    cin>>descripcion;
-    for(int i=0; i<descripcion.length(); i++){
-        descripcion[i]=toupper(descripcion[i]);
-    }
-    Categoria[dlCategorias].descripcion= descripcion;
+string agregarCategoria(Categoria categorias[], int &dlCategorias){
     Categoria.codigoCategoria=dlCategorias;
+    cout<<"ingrese la descripcion de la categoria:";
+    getline(cin,categorias[dlCategorias].descripcion);
     dlCategorias++;
-    return Categoria.codigoCategoria;
+
+cout<<"el codigo de la categoria es: "Categoria.codigoCategoria<<endl;
 }
 
 void modificarCategoria(){
@@ -157,6 +155,8 @@ int dlCategorias = 0;
 int dlprestamos = 0;
 int dlpreatatarios = 0;
 int df=15;
+const int MAX=15;
+
 
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
@@ -187,7 +187,6 @@ Categoria categorias[15];
                     {
                     case 'a':
                         agregarCategoria(categorias, dlCategorias);
-                        cout<<agregarCategoria(categorias, dlCategorias);
                         break;
                     case 'b':
                         cout << "usted eligio la op 2" << endl;
