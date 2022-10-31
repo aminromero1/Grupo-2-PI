@@ -42,19 +42,22 @@ Categoria categorias[15];
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
 int agregarCategoria(Categoria categorias[], int &dlCategorias){
-    int codigoCategoria;
-    cout << "Ingrese el codigo de la categoria(0 para salir): ";
-    cin >> codigoCategoria;
-    while(codigoCategoria != 0 && dlCategorias < MAX){
-        categorias[dlCategorias].codigoCategoria = codigoCategoria;
-        cout << "Ingrese la descripcion de la categoria: ";
-        getline(cin>>ws, categorias[dlCategorias].descripcion);
+    // el codigo de la categoria es el indice del array
+    string descripcion;
+    categorias[dlCategorias].codigoCategoria = dlCategorias;
+    cout<<"Ingrese la descripcion de la categoria(X para salir): ";
+    cin>>descripcion;
+
+    while(descripcion != "X" && dlCategorias < MAX){
+        categorias[dlCategorias].descripcion = descripcion;
+        cout << "Categoria agregada con exito \nodigo: " << dlCategorias << endl;
         dlCategorias++;
-        cout << "Ingrese el codigo de la categoria(0 para salir): ";
-        cin >> codigoCategoria;
+        categorias[dlCategorias].codigoCategoria = dlCategorias;
+        cout<<"Ingrese la descripcion de la categoria(X para salir): ";
+        cin>>descripcion;
     }
     return dlCategorias;
-}
+} 
 
 void modificarCategoria(){
     cout << "Modificar categoria" << endl;
@@ -62,11 +65,24 @@ void modificarCategoria(){
     //el usuario selecciona la categoria a modificar
 }
 
-void eliminarCategoria(){
+void eliminarCategoria(Categoria categorias[], int &dlCategorias){
     cout << "Eliminar categoria" << endl;
-    //muestra todas las categorias existentes
-    //el usuario selecciona la categoria a eliminar
+    codigoCategoria;
+    cout << "Ingrese el codigo de la categoria a eliminar: ";
+    cin >> codigoCategoria;
+    
 }
+// funcion secundaria a EliminarCategoria
+// funcion ExistePrestamo para saber si hay algun prestamo con la categoria a eliminar
+bool existePrestamo(Prestamo prestamos[], int codigoCategorias){
+    for(int i=0; i < dlprestamos; i++)
+        if(prestamos[i].categoria.codigoCategoria == codigoCategorias)
+            return true;
+    return false;
+}
+
+
+
 
 void agregarPrestatario(){
     cout << "Agregar prestatario" << endl;
@@ -166,7 +182,7 @@ int main(){
                         modificarCategoria();
                         break;
                     case 'c':
-                        eliminarCategoria();                  
+                        eliminarCategoria(categorias, dlCategorias);             
                         break;
                     case 'd':
                         agregarPrestatario();
