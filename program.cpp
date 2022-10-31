@@ -3,6 +3,12 @@
 using namespace std;
 
 // ****************************************
+int dlCategorias = 0;
+int dlprestamos = 0;
+int dlprestatarios = 0;
+int df=15;
+const int MAX=15;
+
 // Structs
 struct Categoria{
     int codigoCategoria;
@@ -27,26 +33,27 @@ int opcionPrincipal;
 char opcionCase;
 string descripcion;
 
-int dlCategorias = 0;
-int dlprestamos = 0;
-int dlpreatatarios = 0;
-int df=15;
-const int MAX=15;
-
+// ***********************************************
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
-Categoria categorias[15]; //categoria struct, categoriaS array
-//dentro de categoria hay descrip y codigo
+Categoria categorias[15]; 
+
 // ***********************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 
-string agregarCategoria(Categoria categorias[], int &dlCategorias){
-    Categoria.codigoCategoria=dlCategorias;
-    cout<<"ingrese la descripcion de la categoria:";
-    getline(cin,categorias[dlCategorias].descripcion);
-    dlCategorias++;
-
-cout<<"el codigo de la categoria es: "Categoria.codigoCategoria<<endl;
+int agregarCategoria(Categoria categorias[], int &dlCategorias){
+    int codigoCategoria;
+    cout << "Ingrese el codigo de la categoria(0 para salir): ";
+    cin >> codigoCategoria;
+    while(codigoCategoria != 0 && dlCategorias < MAX){
+        categorias[dlCategorias].codigoCategoria = codigoCategoria;
+        cout << "Ingrese la descripcion de la categoria: ";
+        getline(cin>>ws, categorias[dlCategorias].descripcion);
+        dlCategorias++;
+        cout << "Ingrese el codigo de la categoria(0 para salir): ";
+        cin >> codigoCategoria;
+    }
+    return dlCategorias;
 }
 
 void modificarCategoria(){
@@ -129,39 +136,6 @@ void prestatariosConobjetosPrestados(){
 
 // funcion principal
 int main(){
-struct Categoria{
-    int codigoCategoria;
-    string descripcion;
-};
-
-struct Prestatario{
-    int codigoPrestatario;
-    string nombre;
-    string apellido;
-};
-
-struct Prestamo{
-    struct Categoria categoria;
-    struct Prestatario prestatario;
-    string descripcion;
-    bool estado;
-};
-
-int opcionPrincipal;
-char opcionCase;
-string descripcion;
-
-int dlCategorias = 0;
-int dlprestamos = 0;
-int dlpreatatarios = 0;
-int df=15;
-const int MAX=15;
-
-
-Prestatario prestatarios[15];
-Prestamo prestamos[15];
-Categoria categorias[15];
-//########################################################################################################
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
             cout << "2. Administrar Préstamos" << endl;
@@ -189,23 +163,18 @@ Categoria categorias[15];
                         agregarCategoria(categorias, dlCategorias);
                         break;
                     case 'b':
-                        cout << "usted eligio la op 2" << endl;
                         modificarCategoria();
                         break;
                     case 'c':
-                        cout << "usted eligio la op 3" << endl;
                         eliminarCategoria();                  
                         break;
                     case 'd':
-                        cout << "usted eligio la op 4" << endl;
                         agregarPrestatario();
                         break;
                     case 'e':
-                        cout << "usted eligio la op 5" << endl;
                         modificarPrestatario();
                         break;
                     case 'f':
-                        cout << "usted eligio la op 6" << endl;
                         eliminarPrestatario();
                         break;
                     default:
@@ -227,19 +196,15 @@ Categoria categorias[15];
                     switch (tolower((opcionCase)))
                     {
                     case 'a':
-                        cout <<"usted eligio la op 1"<< endl;
                         agregarPrestamo();                     
                         break;
                     case 'b':
-                        cout <<"usted eligio la op 2"<< endl;
                         modificarPrestamo();
                         break;
                     case 'c':
-                        cout << "usted eligio la op 3" << endl;
                         eliminarPrestamo();
                         break;
                     case 'd':
-                        cout << "usted eligio la op 4" << endl;
                         devolverPrestamo();
                         break;
                     default:
@@ -261,19 +226,15 @@ Categoria categorias[15];
                     switch (tolower((opcionCase)))
                     {
                     case 'a':
-                        cout << "usted eligio la op 1" << endl;
                         cantObjetosPorCategoria();
                         break;
                     case 'b':
-                        cout << "usted eligio la op 2" << endl;
                         listadoPrestamosPorCategoria();
                         break;
                     case 'c':
-                        cout << "usted eligio la op 3" << endl;
                         listadoPrestamosPorPrestatario();
                         break;
                     case 'd':
-                        cout << "usted eligio la op 4" << endl;
                         prestatariosConobjetosPrestados();
                         break;
                     default:
