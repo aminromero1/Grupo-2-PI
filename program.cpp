@@ -78,7 +78,7 @@ int modificarCategoria(Categoria categorias[], int &dlCategorias){
     return 1;
 }
 
-void eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, int codigoCategorias){
+void eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, int codigoCategoria){
     cout << "Eliminar categoria" << endl;
     codigoCategorias;
     cout << "Ingrese el codigo de la categoria a eliminar: ";
@@ -86,7 +86,7 @@ void eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prest
 
     if(existePrestamo(prestamos, dlprestamos, codigoCategorias) == false){
         for(int i = 0; i < dlCategorias; i++){
-            if(categorias[i].codigoCategoria == codigoCategoria){
+            if(categorias[i].codigoCategoria == codigoCategorias){
                 for(int j = i; j < dlCategorias; j++){
                     categorias[j] = categorias[j+1];
                 }
@@ -99,7 +99,6 @@ void eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prest
     else{
         cout << "No se puede eliminar la categoria porque tiene prestamos asociados" << endl;
     }
-    
 }
 // funcion secundaria a EliminarCategoria
 // funcion ExistePrestamo para saber si hay algun prestamo con la categoria a eliminar
@@ -109,15 +108,14 @@ bool existePrestamo(Prestamo prestamos[], int codigoCategorias, int &dlprestamos
             return true;
     return false;
 }
-
-void agregarPrestatario(){
+  
+int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
     cout << "Agregar prestatario" << endl;
-    int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
     string nombre;
     prestatarios[dlprestatarios].codigoPrestatario = dlprestatarios;
+
     cout<<"Ingrese el nombre del prestatario(X para salir): ";
     cin>>nombre;
-
     while(nombre != "X" && dlprestatarios < MAX){
         cout<<"Ingrese el apellido del prestatario: ";
         cin>>prestatarios[dlprestatarios].apellido;
@@ -129,26 +127,69 @@ void agregarPrestatario(){
         cin>>nombre;
     }
     return dlprestatarios;
-    }
-}
-void modificarPrestatario(){
-    cout << "Modificar prestatario" << endl;
-    //muestra todos los prestatarios existentes
-    //el usuario selecciona el prestatario a modificar
+    
 }
 
-void eliminarPrestatario(){
-    cout << "Eliminar prestatario" << endl;
-    //muestra todos los prestatarios existentes
-    //el usuario selecciona el prestatario a eliminar
-} 
+int modificarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
+    cout << "Modificar prestatario" << endl;
+    int codigoPrest;
+    string nuevoNombre;
+    string apellidoNuevo;
+ 
+    cout<<"ingrese el codigo del prestatario a modificar: ";
+    cin>>codigoPrest;
+    for (int i=0; i=dlprestatarios; i++){
+        if(codigoPrest==dlprestatarios){
+            cout<<"ingrese el nuevo nombre del prestatario:";
+            cin>>nuevoNombre;
+            prestatarios[dlprestatarios].nombre = nuevoNombre;
+            cout<<"ingrese el nuevo apellido del prestatario:";
+            cin>>apellidoNuevo;
+            prestatarios[dlprestatarios].apellido = apellidoNuevo;
+        }
+        else{
+            cout << "no hay ningun prestatario registrado con ese nombre" << endl;
+        }
+    }
+    return 1;
+}
+
+void eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigoPrestatario){
+    cout << "Eliminar prestatario" << endl:
+    codigo;
+    cout << "Ingrese el codigo del prestatario a eliminar: ";
+    cin >> codigo;
+
+    if(existePrestamo(prestatarios, dlprestatarios, codigoPrestatario, prestamos, codigo) == false){
+        for(int i = 0; i < dlprestatarios; i++){
+            if(prestatarios[i].codigoPrestatario == codigo){
+                for(int j = i; j < dlprestatarios; j++){
+                    prestatarios[j] = prestatarios[j+1];
+                }
+                dlprestatarios--;
+                cout << "Prestatario eliminada con exito" << endl;
+                break;
+            }
+        }
+    }
+    else{
+        cout << "“El prestatario no puede eliminarse debido a que hay préstamos pendientes" << endl;
+    }
+}
+// funcion secundaria a EliminarPestatatario
+bool existePrestamo(Prestatario prestatarios, int&dlprestatarios, int codigoPrestatario, Prestamo prestamos, int codigo){
+    for(int i=0; i < dlprestatarios; i++)
+        if(prestamos[i].prestatarios.codigoPrestatario == codigo)
+            return true;
+    return false;
+}
 
 // Opcion 2 = Administrar Préstamos
 
 void agregarPrestamo(){
     cout << "Agregar prestamo" << endl;
-    //pide al usuario cargar un prestamo
-}
+    int codigoCategoria
+    cout << "Desea ver las categorias existentes? (S/N): ";
 
 void modificarPrestamo(){
     cout << "Modificar prestamo" << endl;
