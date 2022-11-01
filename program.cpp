@@ -103,7 +103,7 @@ void eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prest
 }
 // funcion secundaria a EliminarCategoria
 // funcion ExistePrestamo para saber si hay algun prestamo con la categoria a eliminar
-bool existePrestamo(Prestamo prestamos[], int codigoCategorias){
+bool existePrestamo(Prestamo prestamos[], int codigoCategorias, int &dlprestamos){
     for(int i=0; i < dlprestamos; i++)
         if(prestamos[i].categoria.codigoCategoria == codigoCategorias)
             return true;
@@ -112,9 +112,25 @@ bool existePrestamo(Prestamo prestamos[], int codigoCategorias){
 
 void agregarPrestatario(){
     cout << "Agregar prestatario" << endl;
-    //pide al usuario cargar un prestatario
-}
+    int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
+    string nombre;
+    prestatarios[dlprestatarios].codigoPrestatario = dlprestatarios;
+    cout<<"Ingrese el nombre del prestatario(X para salir): ";
+    cin>>nombre;
 
+    while(nombre != "X" && dlprestatarios < MAX){
+        cout<<"Ingrese el apellido del prestatario: ";
+        cin>>prestatarios[dlprestatarios].apellido;
+        prestatarios[dlprestatarios].nombre = nombre;
+        cout << "Prestatario agregado con exito \n codigo: " << dlprestatarios << endl;
+        dlprestatarios++;
+        prestatarios[dlprestatarios].codigoPrestatario = dlprestatarios;
+        cout<<"Ingrese el nombre del prestatario(X para salir): ";
+        cin>>nombre;
+    }
+    return dlprestatarios;
+    }
+}
 void modificarPrestatario(){
     cout << "Modificar prestatario" << endl;
     //muestra todos los prestatarios existentes
