@@ -59,17 +59,46 @@ int agregarCategoria(Categoria categorias[], int &dlCategorias){
     return dlCategorias;
 } 
 
-void modificarCategoria(){
-    cout << "Modificar categoria" << endl;
-    //muestra todas las categorias existentes
-    //el usuario selecciona la categoria a modificar
+int modificarCategoria(Categoria categorias[], int &dlCategorias){
+    int codigo_mod;
+    string nueva_desc;
+ 
+    cout<<"ingrese el codigo de la categoria a modificar: ";
+    cin>>codigo_mod;
+    for (int i=0; i=dlCategorias; i++){
+        if(codigo_mod==dlCategorias){
+            cout<<"ingrese la nueva descripcion de la categoria:";
+            cin>>nueva_desc;
+            categorias[dlCategorias].descripcion = nueva_desc;
+        }
+        else{
+            cout<<"la categoria seleccionada no existe"<<endl;
+        }
+    }
+    return 1;
 }
 
-void eliminarCategoria(Categoria categorias[], int &dlCategorias){
+void eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, int codigoCategorias){
     cout << "Eliminar categoria" << endl;
-    codigoCategoria;
+    codigoCategorias;
     cout << "Ingrese el codigo de la categoria a eliminar: ";
-    cin >> codigoCategoria;
+    cin >> codigoCategorias;
+
+    if(existePrestamo(prestamos, dlprestamos, codigoCategorias) == false){
+        for(int i = 0; i < dlCategorias; i++){
+            if(categorias[i].codigoCategoria == codigoCategoria){
+                for(int j = i; j < dlCategorias; j++){
+                    categorias[j] = categorias[j+1];
+                }
+                dlCategorias--;
+                cout << "Categoria eliminada con exito" << endl;
+                break;
+            }
+        }
+    }
+    else{
+        cout << "No se puede eliminar la categoria porque tiene prestamos asociados" << endl;
+    }
     
 }
 // funcion secundaria a EliminarCategoria
@@ -80,9 +109,6 @@ bool existePrestamo(Prestamo prestamos[], int codigoCategorias){
             return true;
     return false;
 }
-
-
-
 
 void agregarPrestatario(){
     cout << "Agregar prestatario" << endl;
@@ -179,7 +205,7 @@ int main(){
                         agregarCategoria(categorias, dlCategorias);
                         break;
                     case 'b':
-                        modificarCategoria();
+                        modificarCategoria(categorias, dlCategorias);
                         break;
                     case 'c':
                         eliminarCategoria(categorias, dlCategorias);             
