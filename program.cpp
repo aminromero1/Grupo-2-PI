@@ -53,7 +53,7 @@ int agregarCategoria(Categoria categorias[], int &dlCategorias){
 
     while(descripcion != "X" && dlCategorias < MAX){
         categorias[dlCategorias].descripcion = descripcion;
-        cout << "Categoria agregada con exito \nodigo: " << dlCategorias << endl;
+        cout << "Categoria agregada con exito \nCodigo: " << dlCategorias << endl;
         dlCategorias++;
         categorias[dlCategorias].codigoCategoria = dlCategorias;
         cout<<"Ingrese la descripcion de la categoria(X para salir): ";
@@ -62,22 +62,24 @@ int agregarCategoria(Categoria categorias[], int &dlCategorias){
     return dlCategorias;
 } 
 
-int modificarCategoria(Categoria categorias[], int &dlCategorias){
-    int codigo_mod;
-    string nueva_desc;
- 
+int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, string descripcion){
     cout<<"ingrese el codigo de la categoria a modificar: ";
-    cin>>codigo_mod;
-    for (int i=0; i=dlCategorias; i++){
-        if(codigo_mod==dlCategorias){
-            cout<<"ingrese la nueva descripcion de la categoria:";
-            cin>>nueva_desc;
-            categorias[dlCategorias].descripcion = nueva_desc;
+    cin>>codigo;
+
+  
+    for(int i = 0; i < dlCategorias; i++){
+            if(categorias[i].codigoCategoria == codigo){
+                cout<<"ingrese la nueva descripcion de la categoria:";
+                cin>>descripcion;
+                categorias[dlCategorias].descripcion = descripcion;
+                break;
+            }
+            else{
+                cout<<"la categoria seleccionada no existe"<<endl;
+                break;
+            }
+
         }
-        else{
-            cout<<"la categoria seleccionada no existe"<<endl;
-        }
-    }
     return 1;
 }
 
@@ -89,7 +91,6 @@ bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias
     return false;
 }
 //********************************************************************************
-
 
 int eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, int codigo){
     cout << "Eliminar categoria" << endl;
@@ -390,7 +391,7 @@ int main(){
                         agregarCategoria(categorias, dlCategorias);
                         break;
                     case 'b':
-                        modificarCategoria(categorias, dlCategorias);
+                        modificarCategoria(categorias, dlCategorias, codigo, descripcion);
                         break;
                     case 'c':
                         eliminarCategoria(categorias, dlCategorias, prestamos, dlprestamos, codigo);           
