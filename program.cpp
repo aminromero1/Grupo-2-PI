@@ -22,7 +22,7 @@ struct Prestatario{
 };
 
 struct Prestamo{
-    struct Categoria categoria;
+    struct Categoria categoria; 
     struct Prestatario prestatario;
     string descripcion;
     bool estado;
@@ -62,7 +62,7 @@ int agregarCategoria(Categoria categorias[], int &dlCategorias){
     return dlCategorias;
 } 
 
-int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, string descripcion){
+int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, string descripcion){ //NO FUNCIONA
     cout<<"ingrese el codigo de la categoria a modificar: ";
     cin>>codigo;
 
@@ -136,7 +136,7 @@ int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
     
 }
 
-int modificarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
+int modificarPrestatario(Prestatario prestatarios[], int &dlprestatarios){ //NO FUNCIONA
     cout << "Modificar prestatario" << endl;
     int codigoPrest;
     string nuevoNombre;
@@ -263,7 +263,7 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
         }
     }
 
-    cout << "¿Desea ver los actuales prestatarios (S/N): ?";
+    cout << "¿Desea ver los actuales prestatarios (S/N): ?"; //NO FUNCIONA
     cin >> opcion;
     if(opcion == 'S'){
         mostrarPrestatarios(prestatarios, dlprestatarios);
@@ -342,7 +342,11 @@ void devolverPrestamo(Prestatario prestatarios[], int &dlprestatarios, Prestamo 
 
 void cantObjetosPorCategoria(){
     cout << "Cantidad de objetos por categoria" << endl;
+    cout<<""<<endl;
     //muestra muestra todos los objetos existentes en cada categoria
+    /*primero recorrer las categorias según el códigocat, hasta llegar al dlcategoria.
+    por cada reccorida mostrar en pantalla el nombre de la categoria en la posición que se encuentra y luego contar cuantas prestamos hay en ese array posicionado,
+     la pregunta es como xq no hay dl para cada categoria creada, sino una general para todas */
 }
 
 void listadoPrestamosPorCategoria(){
@@ -383,6 +387,7 @@ int main(){
                     cout << "  D) Agregar prestatario" << endl;
                     cout << "  E) Modificar prestatario" << endl;
                     cout << "  F) Eliminar prestatario" << endl;
+                    cout << "  G) Salir Al Menú Principal"<< endl;
                     cout << "ingrese la opcion: ";
                     cin >> opcionCase;
                     switch (tolower((opcionCase)))
@@ -405,11 +410,13 @@ int main(){
                     case 'f':
                         eliminarPrestatario(prestatarios, dlprestatarios, prestamos, dlprestamos, codigo);
                         break;
+                    case 'g':
+                        break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase != 'e', opcionCase != 'f');
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase != 'e', opcionCase != 'f', opcionCase!= 'g');
                 break;
             case 2:
                 do
@@ -419,6 +426,7 @@ int main(){
                     cout << "  B) Modificar préstamo" << endl;
                     cout << "  C) Eliminar préstamo" << endl;
                     cout << "  D) Devolver préstamo" << endl;
+                    cout << "  E) Salir Al Menú Principal"<< endl;
                     cout << "ingrese la opcion: ";
                     cin >> opcionCase;
                     switch (tolower((opcionCase)))
@@ -435,11 +443,13 @@ int main(){
                     case 'd':
                         devolverPrestamo(prestatarios, dlprestatarios, prestamos, dlprestamos);
                         break;
+                    case 'e':
+                        break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd');
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase!='e');
                 break;
             case 3:
                 do
@@ -449,6 +459,7 @@ int main(){
                     cout << "  B) Listado de préstamos por categoría" << endl;
                     cout << "  C) Listado de préstamos ordenados por categoría o prestatario" << endl;
                     cout << "  D) Listar todos los prestatarios que tienen al menos un objeto prestado" << endl;
+                    cout << "  E) Salir Al Menú Principal"<< endl;
                     cout << "ingrese la opcion: ";
                     cin >> opcionCase;
                     switch (tolower((opcionCase)))
@@ -465,12 +476,16 @@ int main(){
                     case 'd':
                         prestatariosConobjetosPrestados();
                         break;
+                    case 'e': 
+                        break;
+                    case 'f':
+                        break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd');
-                    break;
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase !='e', opcionCase !='f');
+                break;
             default:
                 cout << "POR FAVOR INGRESE UNA OPCION VALIDA" << endl;
                 break;
