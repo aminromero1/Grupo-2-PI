@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-// ****************************************
+// *****************************************************************************************************
 int dlCategorias = 0;
 int dlprestamos = 0;
 int dlprestatarios = 0;
@@ -27,22 +27,22 @@ struct Prestamo{
     string descripcion;
     bool estado;
 };
-// ***********************************************
+// *****************************************************************************************************
 // Variables
 int opcionPrincipal;
 char opcionCase;
 string descripcion;
 int codigo;
 
-// ***********************************************
+// *****************************************************************************************************
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
 Categoria categorias[15]; 
 
-// ***********************************************
+// *****************************************************************************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
-// ************************************************************************
-// ************************************************************************
+// *****************************************************************************************************
+// *****************************************************************************************************
 
 int agregarCategoria(Categoria categorias[], int &dlCategorias){
     // el codigo de la categoria es el indice del array
@@ -62,6 +62,8 @@ int agregarCategoria(Categoria categorias[], int &dlCategorias){
     return dlCategorias;
 } 
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, string descripcion){ //NO FUNCIONA
     cout<<"ingrese el codigo de la categoria a modificar: ";
     cin>>codigo;
@@ -83,6 +85,8 @@ int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, st
     return 1;
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 // funcion secundaria a EliminarCategoria
 bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias){
     for(int i=0; i < dlprestamos; i++)
@@ -90,7 +94,8 @@ bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias
             return true;
     return false;
 }
-//********************************************************************************
+// *****************************************************************************************************
+// *****************************************************************************************************
 
 int eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, int codigo){
     cout << "Eliminar categoria" << endl;
@@ -115,6 +120,8 @@ int eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo presta
     return 1;
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
     cout << "Agregar prestatario" << endl;
     string nombre;
@@ -136,6 +143,8 @@ int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
     
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 int modificarPrestatario(Prestatario prestatarios[], int &dlprestatarios){ //NO FUNCIONA
     cout << "Modificar prestatario" << endl;
     int codigoPrest;
@@ -160,6 +169,8 @@ int modificarPrestatario(Prestatario prestatarios[], int &dlprestatarios){ //NO 
     return 1;
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 // funcion secundaria a EliminarPestatatario
 bool existePrestamo(Prestatario prestatarios[], Prestamo prestamos[], int & dlprestatarios, int codigo){
     for(int i=0; i < dlprestatarios; i++)
@@ -169,7 +180,8 @@ bool existePrestamo(Prestatario prestatarios[], Prestamo prestamos[], int & dlpr
 }
 
 // Opcion 2 = Administrar Préstamos
-// ************************************************************************
+// *****************************************************************************************************
+// *****************************************************************************************************
 int eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo){
     cout << "Eliminar prestatario" << endl;
     cout << "Ingrese el codigo del prestatario a eliminar: " << endl;
@@ -195,7 +207,8 @@ int eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestam
     return 1;
 }
 
-// ************************************************************************
+// *****************************************************************************************************
+// *****************************************************************************************************
 // funciones secundarias a agregarPrestamo
 int mostrarCategorias(Categoria categorias[], int &dlCategorias){
     cout << "Mostrar categorias" << endl;
@@ -235,6 +248,7 @@ bool existePrestatario(Prestatario prestatarios[], int &dlprestatarios, int codi
     }
     return false;
 }
+// *****************************************************************************************************
 // *****************************************************************************************************
 
 int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, Prestatario prestatarios[], int &dlprestatarios){
@@ -289,10 +303,9 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
     dlprestamos++;
     return 1;
 }
+
 // *****************************************************************************************************
 // *****************************************************************************************************
-
-
 int modificarPrestamo(Prestamo prestamos[], int &dlprestamos){
     int codigo_modPr;
     string nueva_descPr;
@@ -312,13 +325,16 @@ int modificarPrestamo(Prestamo prestamos[], int &dlprestamos){
     return 1;
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 void eliminarPrestamo(){
     cout << "Eliminar prestamo" << endl;
 }
 // Funcion secundaria a devolver prestamo
 
 
-// **************************************************************************
+// *****************************************************************************************************
+// *****************************************************************************************************
 void devolverPrestamo(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos){
     cout << "Devolver prestamo" << endl;
     mostrarPrestatarios(prestatarios, dlprestatarios);
@@ -333,12 +349,12 @@ void devolverPrestamo(Prestatario prestatarios[], int &dlprestatarios, Prestamo 
         }
     }
 }
-// ************************************************************************
+// *****************************************************************************************************
 
 
 // Opcion 3 = Consultar Préstamos
-// ************************************************************************
-// ************************************************************************
+// *****************************************************************************************************
+// *****************************************************************************************************
 
 void cantObjetosPorCategoria(){
     cout << "Cantidad de objetos por categoria" << endl;
@@ -350,7 +366,8 @@ void cantObjetosPorCategoria(){
 }
 // Funciones secundarias a listado de prestamos por prestatario
 
-
+// *****************************************************************************************************
+// *****************************************************************************************************
 void listadoPrestamosPorCategoria(){
     cout << "Listado de prestamos por categoria" << endl;
     cout<<""<<endl;
@@ -360,6 +377,9 @@ void listadoPrestamosPorCategoria(){
      la pregunta es como xq no hay dl para cada categoria creada, sino una general para todas */
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
+//funcion secundaria de listado de prestamos por prestatario
 int ContadorPrestamosPendientes(Prestamo prestamos[], int &dlprestamos){
     int cantObjPen=0;
     for(int j=0; j < dlprestamos; j++){
@@ -370,6 +390,8 @@ int ContadorPrestamosPendientes(Prestamo prestamos[], int &dlprestamos){
     return cantObjPen;
 }
 
+// *****************************************************************************************************
+// *****************************************************************************************************
 void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &dlprestamos, Prestatario prestatarios[], int &dlprestatarios){
     cout << "Listado de prestamos por prestatario" << endl;
     //muestra el listado de prestamos por prestatario
@@ -378,9 +400,12 @@ void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &dlprestamos, Pres
             cout << "Nombre:"  <<  prestamos[i].prestatario.nombre << endl;
             cout << "Apellido:"  <<  prestamos[i].prestatario.apellido << endl;
             cout << "Prestamos pendientes:"  <<  ContadorPrestamosPendientes(prestamos, dlprestamos) << endl;
-        }   
+        }
     }
 }
+
+// *****************************************************************************************************
+// *****************************************************************************************************
 void prestatariosConobjetosPrestados(){
     cout << "Prestatarios con objetos prestados" << endl;
     //muestra un listado de prestatarios que tengan uno o mas objetos prestados
@@ -481,7 +506,7 @@ int main(){
                     cout << "  B) Listado de préstamos por categoría" << endl;
                     cout << "  C) Listado de préstamos ordenados por categoría o prestatario" << endl;
                     cout << "  D) Listar todos los prestatarios que tienen al menos un objeto prestado" << endl;
-                    cout << "  E) Salir Al Menú Principal"<< endl;
+                    cout << "  X) Salir Al Menú Principal"<< endl;
                     cout << "ingrese la opcion: ";
                     cin >> opcionCase;
                     switch (tolower((opcionCase)))
@@ -498,21 +523,21 @@ int main(){
                     case 'd':
                         prestatariosConobjetosPrestados();
                         break;
-                    case 'e': 
-                        break;
-                    case 'f':
+                    case 'x': 
                         break;
                     default:
                         cout << "ELIJA UNA OPCION CORRECTA" << endl;
                         break;
                     }
-                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase !='e', opcionCase !='f');
+                } while (opcionCase != 'a', opcionCase != 'b', opcionCase != 'c', opcionCase != 'd', opcionCase !='x');
+                break;
+            case 254:
                 break;
             default:
                 cout << "POR FAVOR INGRESE UNA OPCION VALIDA" << endl;
                 break;
             }
-        } while (opcionPrincipal != 1, opcionPrincipal != 2, opcionPrincipal != 3);
+        } while (opcionPrincipal != 1, opcionPrincipal != 2, opcionPrincipal != 3, opcionPrincipal != 254);
         
     return 0;
 }
