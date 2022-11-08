@@ -348,17 +348,39 @@ void cantObjetosPorCategoria(){
     por cada reccorida mostrar en pantalla el nombre de la categoria en la posición que se encuentra y luego contar cuantas prestamos hay en ese array posicionado,
      la pregunta es como xq no hay dl para cada categoria creada, sino una general para todas */
 }
+// Funciones secundarias a listado de prestamos por prestatario
+
 
 void listadoPrestamosPorCategoria(){
     cout << "Listado de prestamos por categoria" << endl;
-    //muestra el listado de objetos por categoria
+    cout<<""<<endl;
+    //muestra todos los prestamos existentes en cada categoria
+    /*primero recorrer las categorias según el códigocat, hasta llegar al dlcategoria.
+    por cada reccorida mostrar en pantalla el nombre de la categoria en la posición que se encuentra y luego contar cuantas prestamos hay en ese array posicionado,
+     la pregunta es como xq no hay dl para cada categoria creada, sino una general para todas */
 }
 
-void listadoPrestamosPorPrestatario(){
+int ContadorPrestamosPendientes(Prestamo prestamos[], int &dlprestamos){
+    int cantObjPen=0;
+    for(int j=0; j < dlprestamos; j++){
+        if(prestamos[j].estado == true){
+            cantObjPen++;
+        }
+    }
+    return cantObjPen;
+}
+
+void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &dlprestamos, Prestatario prestatarios[], int &dlprestatarios){
     cout << "Listado de prestamos por prestatario" << endl;
     //muestra el listado de prestamos por prestatario
+    for(int i = 0; i < dlprestamos; i++){
+        if(prestamos[i].estado == true){
+            cout << "Nombre:"  <<  prestamos[i].prestatario.nombre << endl;
+            cout << "Apellido:"  <<  prestamos[i].prestatario.apellido << endl;
+            cout << "Prestamos pendientes:"  <<  ContadorPrestamosPendientes(prestamos, dlprestamos) << endl;
+        }   
+    }
 }
-
 void prestatariosConobjetosPrestados(){
     cout << "Prestatarios con objetos prestados" << endl;
     //muestra un listado de prestatarios que tengan uno o mas objetos prestados
@@ -471,7 +493,7 @@ int main(){
                         listadoPrestamosPorCategoria();
                         break;
                     case 'c':
-                        listadoPrestamosPorPrestatario();
+                        listadoPrestamosPorPrestatario(prestamos, dlprestamos, prestatarios, dlprestatarios);
                         break;
                     case 'd':
                         prestatariosConobjetosPrestados();
