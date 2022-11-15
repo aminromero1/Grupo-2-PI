@@ -180,9 +180,6 @@ bool existePrestamo(Prestatario prestatarios[], Prestamo prestamos[], int & dlpr
     return false;
 }
 
-// Opcion 2 = Administrar Préstamos
-// *****************************************************************************************************
-// *****************************************************************************************************
 int eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo){
     cout << "Eliminar prestatario" << endl;
     cout << "Ingrese el codigo del prestatario a eliminar: " << endl;
@@ -207,10 +204,9 @@ int eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestam
     }
     return 1;
 }
-
+// Opcion 2 = Administrar Préstamos
 // *****************************************************************************************************
-// *****************************************************************************************************
-// funciones secundarias a agregarPrestamo
+// funciones secundarias de opcion 2
 int mostrarCategorias(Categoria categorias[], int &dlCategorias){
     cout << "Mostrar categorias" << endl;
     for(int i = 0; i < dlCategorias; i++){
@@ -250,7 +246,7 @@ bool existePrestatario(Prestatario prestatarios[], int &dlprestatarios, int codi
     return false;
 }
 // *****************************************************************************************************
-// *****************************************************************************************************
+// Funciones principales de opcion 2
 
 int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, Prestatario prestatarios[], int &dlprestatarios, char opcion, int codigo, string descripcion, int Sumatoria_de_prestamos[]){
     cout << "Agregar prestamo" << endl;
@@ -388,25 +384,115 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
 }
 
 // *****************************************************************************************************
-int modificarPrestamo(Prestamo prestamos[], int &dlprestamos, int codigo, string descripcion){
-    cout << "ingrese el codigo del prestamo a modificar: ";
+int modificarPrestamo(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo, string description){
+    cout << "Modificar prestamo" << endl;
+    mostrarPrestatarios(prestatarios, dlprestatarios);
+    cout << "Ingrese el codigo del prestatario del cual quiere modificar un prestamo (0 para salir): ";
     cin >> codigo;
-    for (int i=0; i=dlprestamos; i++){
-        if(codigo==dlprestamos){
-            cout<<"ingrese la nueva descripcion de la categoria:";
-            cin >> descripcion;
-            prestamos[dlprestamos].descripcion = descripcion;
+    
+    while(codigo != 0){
+        if(existePrestatario(prestatarios, dlprestatarios, codigo) == true){
+            cout << "Prestamos de: " << prestatarios[codigo].nombre << " " << prestatarios[codigo].apellido << endl;
+            for(int i = 0; i < dlprestamos; i++){
+                if(prestamos[i].prestatario.codigoPrestatario == codigo){
+                    if(prestamos[i].estado == true){
+                        cout << "   Categoria: " << prestamos[i].categoria.descripcion << endl;
+                        cout << "   Prestamo: " << prestamos[i].descripcion << endl;
+                        cout << "   Numero de prestamo: " << i << endl;
+                        cout << "*************************" << endl;  
+                    }
+                }
             }
-            else{
-                cout << "el prestamo seleccionado no existe"<<endl;
+            cout << "Ingrese el codigo del prestamo a devolver (0 para salir): ";
+            int codigoAux;
+            cin >> codigoAux;
+
+            while(codigoAux != 0){
+                for(int i = 0; i < dlprestamos; i++){
+                    if(prestamos[i].prestatario.codigoPrestatario == codigo){
+                        if(prestamos[i].estado == true){
+                            if(i == codigoAux){
+                                cout << "Ingrese la nueva descripcion del prestamo: ";
+                                cin >> description;
+                                prestamos[i].descripcion = description;
+
+                                cout << "La nueva descripcion del prestamo es: " << prestamos[i].descripcion << endl;
+                                cout << "**************************************" << endl;
+                                cout << "Prestamo modificado con exito" << endl;
+                            }
+                        }
+                    }
+                    else{
+                    cout << "El prestamo no existe" << endl;
+                    }
+                }
+                
+                cout << "Ingrese el codigo del prestamo a devolver (0 para salir): ";
+                cin >> codigoAux;
             }
         }
+        else{
+            cout << "El prestatario no existe" << endl;
+        }
+        cout << "Ingrese el codigo del prestatario (0 para salir): ";
+        cin >> codigo;
+    }
     return 1;
 }
 
 // *****************************************************************************************************
-void eliminarPrestamo(){
+int eliminarPrestamo(Prestamo prestamos[], int &dlprestamos, Prestatario prestatarios[], int &dlprestatarios, int codigo){
     cout << "Eliminar prestamo" << endl;
+    mostrarPrestatarios(prestatarios, dlprestatarios);
+    cout << "Ingrese el codigo del prestatario (0 para salir): ";
+    cin >> codigo;
+    
+    while(codigo != 0){
+        if(existePrestatario(prestatarios, dlprestatarios, codigo) == true){
+            cout << "Prestamos de: " << prestatarios[codigo].nombre << " " << prestatarios[codigo].apellido << endl;
+            for(int i = 0; i < dlprestamos; i++){
+                if(prestamos[i].prestatario.codigoPrestatario == codigo){
+                    if(prestamos[i].estado == true){
+                        cout << "   Categoria: " << prestamos[i].categoria.descripcion << endl;
+                        cout << "   Prestamo: " << prestamos[i].descripcion << endl;
+                        cout << "   Numero de prestamo: " << i << endl;
+                        cout << "*************************" << endl;  
+                    }
+                }
+            }
+            cout << "Ingrese el codigo del prestamo a eliminar (0 para salir): ";
+            int codigoAux;
+            cin >> codigoAux;
+
+            while(codigoAux != 0){
+                for(int i = 0; i < dlprestamos; i++){
+                    if(prestamos[i].prestatario.codigoPrestatario == codigo){
+                        if(prestamos[i].estado == true){
+                            if(i == codigoAux){
+                                for(int j = i; j < dlprestatarios; j++){
+                                    prestatarios[j] = prestatarios[j+1];
+                                }
+                                dlprestatarios--;
+                                cout << "Prestamo eliminado con exito" << endl;
+                            }
+                        }
+                    }
+                    else{
+                    cout << "El prestamo no existe" << endl;
+                    }
+                }
+                
+                cout << "Ingrese el codigo del prestamo a devolver (0 para salir): ";
+                cin >> codigoAux;
+            }
+        }
+        else{
+            cout << "El prestatario no existe" << endl;
+        }
+        cout << "Ingrese el codigo del prestatario (0 para salir): ";
+        cin >> codigo;
+    }
+    return 1;
 }
 
 
@@ -462,13 +548,9 @@ int devolverPrestamo(Prestatario prestatarios[], int &dlprestatarios, Prestamo p
     return 1;
 }
     
-    // mostrar prestamos del prestatario
-    
 // *****************************************************************************************************
-
 
 // Opcion 3 = Consultar Préstamos
-// *****************************************************************************************************
 // *****************************************************************************************************
 
 void cantObjetosPorCategoria(Categoria categorias[], int &dlCategorias){
@@ -607,10 +689,10 @@ int main(){
                         agregarPrestamo(categorias, dlCategorias, prestamos, dlprestamos, prestatarios, dlprestatarios, opcion, codigo, descripcion, Sumatoria_de_prestamos);                
                         break;
                     case 'b':
-                        modificarPrestamo(prestamos, dlprestamos, codigo, descripcion);
+                        modificarPrestamo(prestatarios, dlprestatarios, prestamos, dlprestamos, codigo, descripcion);
                         break;
                     case 'c':
-                        eliminarPrestamo();
+                        eliminarPrestamo(prestamos, dlprestamos, prestatarios, dlprestatarios, codigo);
                         break;
                     case 'd':
                         devolverPrestamo(prestatarios, dlprestatarios, prestamos, dlprestamos, codigo);
