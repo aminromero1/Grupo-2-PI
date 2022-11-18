@@ -236,6 +236,18 @@ bool existePrestatario(Prestatario prestatarios[], int &dlprestatarios, int codi
     }
     return false;
 }
+
+void imprimirPrestamo(Prestamo prestamos[], int &dlprestamos){
+    cout << "*****************************************" << endl;
+    cout << "Prestamo agregado: " << endl;
+    cout << "   Categoria Codigo: " << prestamos[dlprestamos].categoria.codigoCategoria << endl;
+    cout << "   Categoria Descripcion: " << prestamos[dlprestamos].categoria.descripcion << endl;
+    cout << "   Prestatario Codigo: " << prestamos[dlprestamos].prestatario.codigoPrestatario << endl;
+    cout << "   Prestatario Nombre: " << prestamos[dlprestamos].prestatario.nombre<< endl;
+    cout << "   Prestatario Apellido: " << prestamos[dlprestamos].prestatario.apellido << endl;
+    cout << "   Descripcion: " << prestamos[dlprestamos].descripcion << endl;
+
+}
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Funciones principales de opcion 2
@@ -320,6 +332,7 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
                 prestamos[dlprestamos].descripcion = descripcion;
                 prestamos[dlprestamos].estado = true;
                 cout << "Prestamo agregado con exito" << endl;
+                imprimirPrestamo(prestamos, dlprestamos);
                 break;
             }
             
@@ -350,6 +363,7 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
                 prestamos[dlprestamos].descripcion = descripcion;
                 prestamos[dlprestamos].estado = true;
                 cout << "Prestamo agregado con exito" << endl;
+                imprimirPrestamo(prestamos, dlprestamos);
                 break;
             }
             else{
@@ -372,14 +386,7 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
         break;
     }
     // imprimimos el prestamo agregado
-    cout << "Prestamo agregado: " << endl;
-    cout << "   Categoria Codigo: " << prestamos[dlprestamos].categoria.codigoCategoria << endl;
-    cout << "   Categoria Descripcion: " << prestamos[dlprestamos].categoria.descripcion << endl;
-    cout << "   Prestatario Codigo: " << prestamos[dlprestamos].prestatario.codigoPrestatario << endl;
-    cout << "   Prestatario Nombre: " << prestamos[dlprestamos].prestatario.nombre<< endl;
-    cout << "   Prestatario Apellido: " << prestamos[dlprestamos].prestatario.apellido << endl;
-    cout << "   Descripcion: " << prestamos[dlprestamos].descripcion << endl;
-
+    
     dlprestamos++;
 
     return 1;
