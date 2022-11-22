@@ -238,7 +238,7 @@ bool existePrestatario(Prestatario prestatarios[], int &dlprestatarios, int codi
 }
 
 void imprimirPrestamo(Prestamo prestamos[], int &dlprestamos){
-    cout << "*****************************************" << endl;
+    cout << "**********************************" << endl;
     cout << "Prestamo agregado: " << endl;
     cout << "   Categoria Codigo: " << prestamos[dlprestamos].categoria.codigoCategoria << endl;
     cout << "   Categoria Descripcion: " << prestamos[dlprestamos].categoria.descripcion << endl;
@@ -312,83 +312,79 @@ int agregarPrestamo(Categoria categorias[], int &dlCategorias, Prestamo prestamo
 
     switch (tolower(opcion))
     {
-    case 's':
-    {
-        mostrarPrestatarios(prestatarios, dlprestatarios);
-        cout << "Ingrese el codigo del prestatario(0 para salir): ";
-        cin >> codigo;
 
-        while(codigo != 0){
-            if(existePrestatario(prestatarios, dlprestatarios, codigo) == true){
-                prestamos[dlprestamos].prestatario.codigoPrestatario = codigo;
-                for(int i = 0; i < dlprestatarios; i++){
-                    if(prestatarios[i].codigoPrestatario == codigo){
-                        prestamos[dlprestamos].prestatario.nombre = prestatarios[i].nombre;
-                        prestamos[dlprestamos].prestatario.apellido = prestatarios[i].apellido;
-                    }
-                }
-                cout << "Ingrese la descripcion del prestamo: ";
-                cin >> descripcion;
-                prestamos[dlprestamos].descripcion = descripcion;
-                prestamos[dlprestamos].estado = true;
-                cout << "Prestamo agregado con exito" << endl;
-                imprimirPrestamo(prestamos, dlprestamos);
-                break;
-            }
-            
-            else{
-                cout << "Ingrese un codigo valido" << endl;
-            }
-            cout << "Ingrese el codigo del prestatario(0 para salir): ";
-            cin >> codigo;
-            }
-        break;
-    }
-    case 'n':
+        case 's':
         {
-        cout << "Ingrese el codigo del prestatario(0 para salir): ";
-        cin >> codigo;
-
-        while(codigo != 0){
-            if(existePrestatario(prestatarios, dlprestatarios, codigo) == true){
-                prestamos[dlprestamos].prestatario.codigoPrestatario = codigo;
-                for(int i = 0; i < dlprestatarios; i++){
-                    if(prestatarios[i].codigoPrestatario == codigo){
-                        prestamos[dlprestamos].prestatario.nombre = prestatarios[i].nombre;
-                        prestamos[dlprestamos].prestatario.apellido = prestatarios[i].apellido;
-                    }
-                }
-                cout << "Ingrese la descripcion del prestamo: ";
-                cin >> descripcion;
-                prestamos[dlprestamos].descripcion = descripcion;
-                prestamos[dlprestamos].estado = true;
-                cout << "Prestamo agregado con exito" << endl;
-                imprimirPrestamo(prestamos, dlprestamos);
-                break;
-            }
-            else{
-                cout << "No existe el prestatario" << endl;
-            }
+            mostrarPrestatarios(prestatarios, dlprestatarios);
             cout << "Ingrese el codigo del prestatario(0 para salir): ";
             cin >> codigo;
+
+            while(codigo != 0){
+                if(existePrestatario(prestatarios, dlprestatarios, codigo) == true){
+                    prestamos[dlprestamos].prestatario.codigoPrestatario = codigo;
+                    for(int i = 0; i < dlprestatarios; i++){
+                        if(prestatarios[i].codigoPrestatario == codigo){
+                            prestamos[dlprestamos].prestatario.nombre = prestatarios[i].nombre;
+                            prestamos[dlprestamos].prestatario.apellido = prestatarios[i].apellido;
+                        }
+                    }
+                    cout << "Ingrese la descripcion del prestamo: ";
+                    cin >> descripcion;
+                    prestamos[dlprestamos].descripcion = descripcion;
+                    prestamos[dlprestamos].estado = true;
+                    cout << "Prestamo agregado con exito" << endl;
+                    imprimirPrestamo(prestamos, dlprestamos);
+                    dlprestamos++;
+                    break;
+                }
+                else{
+                    cout << "Ingrese un codigo valido" << endl;
+                }
+                cout << "Ingrese el codigo del prestatario(0 para salir): ";
+                cin >> codigo;
+                }
+            break;
+        }
+        case 'n':
+            {
+            cout << "Ingrese el codigo del prestatario(0 para salir): ";
+            cin >> codigo;
+
+            while(codigo != 0){
+                if(existePrestatario(prestatarios, dlprestatarios, codigo) == true){
+                    prestamos[dlprestamos].prestatario.codigoPrestatario = codigo;
+                    for(int i = 0; i < dlprestatarios; i++){
+                        if(prestatarios[i].codigoPrestatario == codigo){
+                            prestamos[dlprestamos].prestatario.nombre = prestatarios[i].nombre;
+                            prestamos[dlprestamos].prestatario.apellido = prestatarios[i].apellido;
+                        }
+                    }
+                    cout << "Ingrese la descripcion del prestamo: ";
+                    cin >> descripcion;
+                    prestamos[dlprestamos].descripcion = descripcion;
+                    prestamos[dlprestamos].estado = true;
+                    cout << "Prestamo agregado con exito" << endl;
+                    imprimirPrestamo(prestamos, dlprestamos);
+                    dlprestamos++;
+                    break;
+                }
+                else{
+                    cout << "No existe el prestatario" << endl;
+                }
+                cout << "Ingrese el codigo del prestatario(0 para salir): ";
+                cin >> codigo;
+                }
             }
-        }
-        break;
-        
-    case 'x':
-    {
-        cout << "Saliendo..." << endl;
-        }
-        break;
-
-    default:
-        cout << "Opcion invalida" << endl;
-        break;
-    }
-    // imprimimos el prestamo agregado
-    
-    dlprestamos++;
-
+            break;
+        case 'x':
+        {
+            cout << "Saliendo..." << endl;
+            }
+            break;
+        default:
+            cout << "Opcion invalida" << endl;
+            break;
+        }  
     return 1;
 }
 
@@ -628,7 +624,7 @@ int listadoPrestamosPorCategoria(Categoria categorias[], int &dlCategorias, Pres
 // *****************************************************************************************************
 void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &dlprestamos, Prestatario prestatarios[], int &dlprestatarios, char opcion, int codigo){
     cout << "Listado de prestamos por prestatario" << endl;
-    cout << "   ¿Desea ver el listado por categoria(C) o Prestatario(P)? :";
+    cout << "   ¿Desea ver el listado por categoria(C) o Prestatario(P)?(X para salir) :";
     cin >> opcion;
 
     if(opcion == 'C' || opcion == 'c'){
@@ -660,6 +656,10 @@ void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &dlprestamos, Pres
                 }
             }
         }
+    }
+    else if(opcion == 'X' || opcion == 'x'){
+        cout << "Saliendo..." << endl;
+        break;
     }
     else{
         cout << "Opcion incorrecta" << endl;
