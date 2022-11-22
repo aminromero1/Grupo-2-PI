@@ -6,35 +6,9 @@ using namespace std;
 int dlCategorias = 1;
 int dlprestamos = 1;
 int dlprestatarios = 1;
-int df=15;
 const int MAX=15;
 
-//Listas
-NodoCategoria * inicioCategoria = nullptr;
-NodoPrestamo * inicioPrestamo = nullptr;
-NodoPrestatario * inicioPrestatario = nullptr;
 
-// Structs
-struct NodoCategoria{
-    int codigoCategoria;
-    string descripcion;
-    NodoCategoria * sigCategoria;
-};
-
-struct NodoPrestatario{
-    int codigoPrestatario;
-    string nombre;
-    string apellido;
-    NodoPrestatario * sigPrestatario;
-};
-
-struct NodoPrestamo{
-    struct Categoria categoria; 
-    struct Prestatario prestatario;
-    string descripcion;
-    bool estado;
-    NodoPrestamo * sigPrestamo;
-};
 // Structs
 struct Categoria{
     int codigoCategoria;
@@ -53,6 +27,25 @@ struct Prestamo{
     string descripcion;
     bool estado;
 };
+
+//Nodos
+// Structs
+struct NodoCategoria{
+    Categoria categoria;
+    NodoCategoria * sigCategoria;
+};
+
+struct NodoPrestatario{
+    Prestatario prestatario;
+    NodoPrestatario * sigPrestatario;
+};
+
+struct NodoPrestamo{
+    Prestamo prestamo;
+    NodoPrestamo * sigPrestamo;
+};
+
+
 // *****************************************************************************************************
 // Variables
 int opcionPrincipal;
@@ -80,23 +73,39 @@ bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Funciones principales de opcion 1
-int agregarCategoria(Categoria categorias[], int &dlCategorias){
-    // el codigo de la categoria es el indice del array
-    string descripcion;
-    categorias[dlCategorias].codigoCategoria = dlCategorias;
-    cout<<"Ingrese la descripcion de la categoria(X para salir): ";
-    cin>>descripcion;
+// hacemos funcion agregar categoria con nodos y listas
+void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inicioCategoria){
+    cout << "Ingrese la descripcion de la categoria(X para salir): ";
+    cin >> descripcion;
 
-    while(descripcion != "X" && descripcion != "x" && dlCategorias < MAX){
-        categorias[dlCategorias].descripcion = descripcion;
+    while(descripcion != "X" && descripcion != "x"){
+        NodoCategoria * nuevo = new NodoCategoria;
+        nuevo->categoria.codigoCategoria = dlCategorias;
+        nuevo->categoria.descripcion = descripcion;
+        nuevo->sigCategoria = nullptr;
         cout << "Categoria agregada con exito \nCodigo: " << dlCategorias << endl;
         dlCategorias++;
-        categorias[dlCategorias].codigoCategoria = dlCategorias;
-        cout<<"Ingrese la descripcion de la categoria(X para salir): ";
-        cin>>descripcion;
-    }
-    return dlCategorias;
-} 
+        cout << "Ingrese la descripcion de la categoria(X para salir): ";
+        cin >> descripcion;
+    } 
+}
+// int agregarCategoria(Categoria categorias[], int &dlCategorias){
+//     // el codigo de la categoria es el indice del array
+//     string descripcion;
+//     categorias[dlCategorias].codigoCategoria = dlCategorias;
+//     cout<<"Ingrese la descripcion de la categoria(X para salir): ";
+//     cin>>descripcion;
+
+//     while(descripcion != "X" && descripcion != "x" && dlCategorias < MAX){
+//         categorias[dlCategorias].descripcion = descripcion;
+//         cout << "Categoria agregada con exito \nCodigo: " << dlCategorias << endl;
+//         dlCategorias++;
+//         categorias[dlCategorias].codigoCategoria = dlCategorias;
+//         cout<<"Ingrese la descripcion de la categoria(X para salir): ";
+//         cin>>descripcion;
+//     }
+//     return dlCategorias;
+// } 
 
 // *****************************************************************************************************
 int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, string descripcion){
@@ -685,7 +694,6 @@ void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &dlprestamos, Pres
     }
     else if(opcion == 'X' || opcion == 'x'){
         cout << "Saliendo..." << endl;
-        break;
     }
     else{
         cout << "Opcion incorrecta" << endl;
@@ -717,6 +725,12 @@ int prestatariosConobjetosPrestados(Prestamo prestamos[], int &dlprestamos, Pres
 
 // funcion principal
 int main(){
+    // declaracion de variables
+    //Listas
+    NodoCategoria * inicioCategoria = nullptr;
+    NodoPrestamo * inicioPrestamo = nullptr;
+    NodoPrestatario * inicioPrestatario = nullptr;
+
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
             cout << "2. Administrar Préstamos" << endl;
@@ -742,7 +756,7 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        agregarCategoria(categorias, dlCategorias);
+                        agregarCategoria(descripcion, dlCategorias, inicioCategoria);
                         break;
                     case 'b':
                         modificarCategoria(categorias, dlCategorias, codigo, descripcion);
