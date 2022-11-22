@@ -9,6 +9,32 @@ int dlprestatarios = 1;
 int df=15;
 const int MAX=15;
 
+//Listas
+NodoCategoria * inicioCategoria = nullptr;
+NodoPrestamo * inicioPrestamo = nullptr;
+NodoPrestatario * inicioPrestatario = nullptr;
+
+// Structs
+struct NodoCategoria{
+    int codigoCategoria;
+    string descripcion;
+    NodoCategoria * sigCategoria;
+};
+
+struct NodoPrestatario{
+    int codigoPrestatario;
+    string nombre;
+    string apellido;
+    NodoPrestatario * sigPrestatario;
+};
+
+struct NodoPrestamo{
+    struct Categoria categoria; 
+    struct Prestatario prestatario;
+    string descripcion;
+    bool estado;
+    NodoPrestamo * sigPrestamo;
+};
 // Structs
 struct Categoria{
     int codigoCategoria;
