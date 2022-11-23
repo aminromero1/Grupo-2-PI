@@ -52,6 +52,8 @@ char opcion;
 string descripcion;
 int codigo;
 bool existe;
+string apellido;
+string nombre;
 // *****************************************************************************************************
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
@@ -62,7 +64,7 @@ Categoria categorias[15];
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 // funcioines secundarias de la opcion 1
 
-bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias){
+bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias){//hacer antes de eliminar prestatario
     for(int i=0; i < dlprestamos; i++)
         if(prestamos[i].categoria.codigoCategoria == codigoCategorias)
             return true;
@@ -73,7 +75,7 @@ bool existePrestamo(Prestamo prestamos[], int &dlprestamos, int codigoCategorias
 // *****************************************************************************************************
 // Funciones principales de opcion 1
 // hacemos funcion agregar categoria con nodos y listas
-void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inicioCategoria){
+void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inicioCategoria){//funciona
     cout << "Ingrese la descripcion de la categoria(X para salir): ";
     cin >> descripcion;
 
@@ -107,7 +109,7 @@ void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inic
 // } 
 
 // *****************************************************************************************************
-int modificarCategoria(bool existe, int codigo, string descripcion, NodoCategoria * inicioCategoria){
+int modificarCategoria(bool existe, int codigo, string descripcion, NodoCategoria * inicioCategoria){//revisar
     NodoCategoria * actual = new NodoCategoria; 
     actual = inicioCategoria;
     cout<<"ingrese el codigo de la categoria a modificar: ";
@@ -148,7 +150,7 @@ int modificarCategoria(bool existe, int codigo, string descripcion, NodoCategori
 
 // *****************************************************************************************************
 
-void eliminarCategoria(NodoCategoria *&inicioCategoria, int &dlCategorias, int codigo){
+void eliminarCategoria(NodoCategoria *&inicioCategoria, int &dlCategorias, int codigo){//funciona
     cout << "Eliminar categoria" << endl;
     cout << "Ingrese el codigo de la categoria a eliminar: ";
     cin >> codigo;
@@ -205,54 +207,76 @@ void eliminarCategoria(NodoCategoria *&inicioCategoria, int &dlCategorias, int c
 }
 
 // *****************************************************************************************************
-int agregarPrestatario(Prestatario prestatarios[], int &dlprestatarios){
+int agregarPrestatario(string nombre, string apellido, string descripcion, int &dlprestatarios, NodoPrestatario *&inicioPrestatario){//revisar
     cout << "Agregar prestatario" << endl;
-    string nombre;
-    prestatarios[dlprestatarios].codigoPrestatario = dlprestatarios;
 
     cout<<"Ingrese el nombre del prestatario(X para salir): ";
     cin>>nombre;
-    while(nombre != "X" && descripcion != "x" && dlprestatarios < MAX){
+
+    while(nombre != "X" && nombre !="x" && dlprestatarios < MAX){//&& descripcion != "x" iba al medio del while(creo que no hace falta)
+        NodoPrestatario * nuevo = new NodoPrestatario;
+        nuevo->prestatario.codigoPrestatario = dlprestatarios;
         cout<<"Ingrese el apellido del prestatario: ";
-        cin>>prestatarios[dlprestatarios].apellido;
-        prestatarios[dlprestatarios].nombre = nombre;
-        cout << "Prestatario agregado con exito \n  codigo: " << dlprestatarios << endl;
+        cin>>apellido;
+        nuevo->prestatario.apellido = apellido;
+        nuevo->prestatario.nombre = nombre;
+        nuevo->sigPrestatario = nullptr;
+        cout << "Prestatario agregado con exito \nCodigo: " << dlprestatarios << endl;
         dlprestatarios++;
-        prestatarios[dlprestatarios].codigoPrestatario = dlprestatarios;
-        cout<<"Ingrese el nombre del prestatario(X para salir): ";
-        cin>>nombre;
+        nuevo->prestatario.codigoPrestatario = dlprestatarios;
     }
     return dlprestatarios;
-    
 }
 
 // *****************************************************************************************************
-int modificarPrestatario(Prestatario prestatarios[], int &dlprestatarios){ //NO FUNCIONA
+int modificarPrestatario(bool existe, int codigo, int &dlprestatarios, NodoPrestatario * inicioPrestatario){ //revisar
     cout << "Modificar prestatario" << endl;
-    int codigoPrest;
+    NodoPrestatario * nuevo = new NodoPrestatario;
     string nuevoNombre;
     string apellidoNuevo;
  
     cout<<"ingrese el codigo del prestatario a modificar: ";
-    cin>>codigoPrest;
-    for (int i=0; i=dlprestatarios; i++){
-        if(codigoPrest==dlprestatarios){
-            cout<<"ingrese el nuevo nombre del prestatario:";
-            cin>>nuevoNombre;
-            prestatarios[dlprestatarios].nombre = nuevoNombre;
-            cout<<"ingrese el nuevo apellido del prestatario:";
-            cin>>apellidoNuevo;
-            prestatarios[dlprestatarios].apellido = apellidoNuevo;
+    cin>>codigo;
+
+    while((nuevo != nullptr) && (nuevo->prestatario.codigoPrestatario <= codigo)){
+        if(nuevo->prestatario.codigoPrestatario == codigo){
+            existe = true;
         }
-        else{
-            cout << "no hay ningun prestatario registrado con ese nombre" << endl;
-        }
+        nuevo = nuevo->sigPrestatario;
+    }
+
+    if (existe == true){
+        cout<<"ingrese el nuevo nombre del prestatario: ";
+        cin>>nuevoNombre;
+        nuevo->prestatario.nombre = nuevoNombre;
+        cout<<"ingrese el nuevo apellido del prestatario: ";
+        cin>>apellidoNuevo;
+        nuevo->prestatario.apellido = apellidoNuevo;
+    }
+    else{
+        cout<<"el prestatario buscado no existe"<<endl;
     }
     return 1;
 }
 
+// for (int i=0; i=dlprestatarios; i++){
+//     if(codigoPrest==dlprestatarios){
+//         cout<<"ingrese el nuevo nombre del prestatario:";
+//         cin>>nuevoNombre;
+//         prestatarios[dlprestatarios].nombre = nuevoNombre;
+//         cout<<"ingrese el nuevo apellido del prestatario:";
+//         cin>>apellidoNuevo;
+//         prestatarios[dlprestatarios].apellido = apellidoNuevo;
+//     }
+//     else{
+//         cout << "no hay ningun prestatario registrado con ese nombre" << endl;
+//     }
+// }
+// return 1;
+
+
 // *****************************************************************************************************
-int eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo){
+void eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo){
     cout << "Eliminar prestatario" << endl;
     cout << "Ingrese el codigo del prestatario a eliminar(0 para salir): " << endl;
     cin >> codigo;
@@ -814,10 +838,10 @@ int main(){
                         eliminarCategoria(inicioCategoria, dlCategorias, codigo);           
                         break;
                     case 'd':
-                        agregarPrestatario(prestatarios, dlprestatarios);
+                        agregarPrestatario(nombre, apellido, descripcion, inicioPrestatario, dlprestatarios);
                         break;
                     case 'e':
-                        modificarPrestatario(prestatarios, dlprestatarios);
+                        modificarPrestatario(existe, codigo, inicioPrestatario, dlprestatarios);
                         break;
                     case 'f':
                         eliminarPrestatario(prestatarios, dlprestatarios, prestamos, dlprestamos, codigo);
