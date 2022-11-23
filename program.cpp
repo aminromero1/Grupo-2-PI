@@ -8,7 +8,6 @@ int dlprestamos = 1;
 int dlprestatarios = 1;
 const int MAX=15;
 
-
 // Structs
 struct Categoria{
     int codigoCategoria;
@@ -52,7 +51,7 @@ int opcionPrincipal;
 char opcion;
 string descripcion;
 int codigo;
-
+bool existe;
 // *****************************************************************************************************
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
@@ -108,50 +107,101 @@ void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inic
 // } 
 
 // *****************************************************************************************************
-int modificarCategoria(Categoria categorias[], int &dlCategorias, int codigo, string descripcion){
+int modificarCategoria(bool existe, int codigo, string descripcion, NodoCategoria * inicioCategoria){
+    NodoCategoria * actual = new NodoCategoria; 
+    actual = inicioCategoria;
     cout<<"ingrese el codigo de la categoria a modificar: ";
     cin>>codigo;
-
   
-    for(int i = 0; i < dlCategorias; i++){
-            if(categorias[i].codigoCategoria == codigo){
-                cout<<"ingrese la nueva descripcion de la categoria:";
-                cin>>descripcion;
-                categorias[dlCategorias].descripcion = descripcion;
-                break;
-            }
-            else{
-                cout<<"la categoria seleccionada no existe"<<endl;
-                break;
-            }
-
+    while((actual != nullptr) && (actual->categoria.codigoCategoria <=codigo)){
+        if(actual->categoria.codigoCategoria == codigo){
+           existe = true; 
         }
+        actual = actual->sigCategoria;
+    }
+
+    if (existe == true){
+        cout<<"ingrese la nueva descripcion de la categoria:";
+        cin>>descripcion;
+        actual->categoria.descripcion = descripcion;
+    }
+    else{
+        cout<<"la categoria seleccionada no existe"<<endl;
+    }
     return 1;
 }
 
+// if(actual->categoria.codigoCategoria == codigo){
+//             cout<<"ingrese la nueva descripcion de la categoria:";
+//             cin>>descripcion;
+//             actual->categoria.descripcion = descripcion;
+//             break;
+//         }
+//         else{
+//             actual = actual->sigCategoria;
+//         }
+//     cout<<"la categoria seleccionada no existe"<<endl;
+//     break;
+//     }
+//     return 1;
+// }
+
 // *****************************************************************************************************
 
-int eliminarCategoria(Categoria categorias[], int &dlCategorias, Prestamo prestamos[], int &dlprestamos, int codigo){
+void eliminarCategoria(NodoCategoria *&inicioCategoria, int &dlCategorias, int codigo){
     cout << "Eliminar categoria" << endl;
     cout << "Ingrese el codigo de la categoria a eliminar: ";
     cin >> codigo;
 
-    if(existePrestamo(prestamos, dlprestamos, codigo) == false){
-        for(int i = 0; i < dlCategorias; i++){
-            if(categorias[i].codigoCategoria == codigo){
-                for(int j = i; j < dlCategorias; j++){
-                    categorias[j] = categorias[j+1];
-                }
-                dlCategorias--;
-                cout << "Categoria eliminada con exito" << endl;
-                break;
+    while(codigo != 0){
+        if(inicioCategoria !=nullptr){
+            NodoCategoria *aux_borrar;
+            NodoCategoria *anterior = nullptr;
+            aux_borrar = inicioCategoria;
+
+            while((aux_borrar != nullptr) && (aux_borrar->categoria.codigoCategoria != codigo)){
+                anterior = aux_borrar;
+                aux_borrar = aux_borrar->sigCategoria;
+            }
+            if(aux_borrar == nullptr){
+                cout << "El elemento no se encuentra en la lista" << endl;
+            }
+            else if(anterior == nullptr){
+                inicioCategoria = inicioCategoria->sigCategoria;
+                delete aux_borrar;
+                cout << "El elemento se ha eliminado de la lista" << endl;
+            }
+            else{
+                anterior->sigCategoria = aux_borrar->sigCategoria;
+                delete aux_borrar;
+                cout << "El elemento se ha eliminado de la lista" << endl;
             }
         }
+        else if(inicioCategoria == nullptr){
+            cout << "La lista se encuentra vacia" << endl;
+            break;
+        }
+        else{
+            cout << "La categoria seleccionada no existe" << endl;
+        }
     }
-    else{
-        cout << "No se puede eliminar la categoria porque tiene prestamos asociados" << endl;
-    }
-    return 1;
+
+    // if(existePrestamo(prestamos, dlprestamos, codigo) == false){
+    //     for(int i = 0; i < dlCategorias; i++){
+    //         if(categorias[i].codigoCategoria == codigo){
+    //             for(int j = i; j < dlCategorias; j++){
+    //                 categorias[j] = categorias[j+1];
+    //             }
+    //             dlCategorias--;
+    //             cout << "Categoria eliminada con exito" << endl;
+    //             break;
+    //         }
+    //     }
+    // }
+    // else{
+    //     cout << "No se puede eliminar la categoria porque tiene prestamos asociados" << endl;
+    // }
+    // return 1;
 }
 
 // *****************************************************************************************************
@@ -725,11 +775,10 @@ int prestatariosConobjetosPrestados(Prestamo prestamos[], int &dlprestamos, Pres
 
 // funcion principal
 int main(){
-    // declaracion de variables
     //Listas
-    NodoCategoria * inicioCategoria = nullptr;
-    NodoPrestamo * inicioPrestamo = nullptr;
-    NodoPrestatario * inicioPrestatario = nullptr;
+    NodoCategoria * inicioCategoria;
+    NodoPrestamo * inicioPrestamo;
+    NodoPrestatario * inicioPrestatario;
 
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
@@ -759,10 +808,10 @@ int main(){
                         agregarCategoria(descripcion, dlCategorias, inicioCategoria);
                         break;
                     case 'b':
-                        modificarCategoria(categorias, dlCategorias, codigo, descripcion);
+                        modificarCategoria(existe, codigo, descripcion, inicioCategoria);
                         break;
                     case 'c':
-                        eliminarCategoria(categorias, dlCategorias, prestamos, dlprestamos, codigo);           
+                        eliminarCategoria(inicioCategoria, dlCategorias, codigo);           
                         break;
                     case 'd':
                         agregarPrestatario(prestatarios, dlprestatarios);
