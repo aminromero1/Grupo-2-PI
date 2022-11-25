@@ -81,15 +81,45 @@ void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inic
 
     while(descripcion != "X" && descripcion != "x"){
         NodoCategoria * nuevo = new NodoCategoria;
-        nuevo->categoria.codigoCategoria = dlCategorias;
-        nuevo->categoria.descripcion = descripcion;
-        nuevo->sigCategoria = nullptr;
-        cout << "Categoria agregada con exito \nCodigo: " << dlCategorias << endl;
+        // si la lista esta vacia
+        if(inicioCategoria == NULL){
+            nuevo->categoria.codigoCategoria = dlCategorias;
+            nuevo->categoria.descripcion = descripcion;
+            nuevo->sigCategoria = NULL;
+            inicioCategoria = nuevo;
+            cout << "Categoria agregada con exito" << endl;
+            cout << "   Descripcion: " << nuevo->categoria.descripcion << endl;
+            cout << "   Codigo: " << nuevo->categoria.codigoCategoria << endl;
+        }
+        else{
+            NodoCategoria * aux = inicioCategoria;
+            while(aux->sigCategoria != NULL)
+                aux = aux->sigCategoria;
+            nuevo->categoria.codigoCategoria = dlCategorias;
+            nuevo->categoria.descripcion = descripcion;
+            nuevo->sigCategoria = NULL;
+            aux->sigCategoria = nuevo;
+            cout << "Categoria agregada con exito" << endl;
+            cout << "   Descripcion: " << nuevo->categoria.descripcion << endl;
+            cout << "   Codigo: " << nuevo->categoria.codigoCategoria << endl;
+        }
+        
         dlCategorias++;
         cout << "Ingrese la descripcion de la categoria(X para salir): ";
         cin >> descripcion;
     } 
 }
+
+
+        
+        // nuevo->categoria.codigoCategoria = dlCategorias;
+        // nuevo->categoria.descripcion = descripcion;
+        // nuevo->sigCategoria = nullptr;
+        // cout << "Categoria agregada con exito \nCodigo: " << dlCategorias << endl;
+        // dlCategorias++;
+        // cout << "Ingrese la descripcion de la categoria(X para salir): ";
+        // cin >> descripcion;
+
 // int agregarCategoria(Categoria categorias[], int &dlCategorias){
 //     // el codigo de la categoria es el indice del array
 //     string descripcion;
@@ -276,7 +306,7 @@ int modificarPrestatario(bool existe, int codigo, int &dlprestatarios, NodoPrest
 
 
 // *****************************************************************************************************
-void eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo){
+int eliminarPrestatario(Prestatario prestatarios[], int &dlprestatarios, Prestamo prestamos[], int &dlprestamos, int codigo){
     cout << "Eliminar prestatario" << endl;
     cout << "Ingrese el codigo del prestatario a eliminar(0 para salir): " << endl;
     cin >> codigo;
@@ -838,10 +868,10 @@ int main(){
                         eliminarCategoria(inicioCategoria, dlCategorias, codigo);           
                         break;
                     case 'd':
-                        agregarPrestatario(nombre, apellido, descripcion, inicioPrestatario, dlprestatarios);
+                        agregarPrestatario(nombre, apellido, descripcion, dlprestatarios, inicioPrestatario);
                         break;
                     case 'e':
-                        modificarPrestatario(existe, codigo, inicioPrestatario, dlprestatarios);
+                        modificarPrestatario(existe, codigo, dlprestatarios, inicioPrestatario);
                         break;
                     case 'f':
                         eliminarPrestatario(prestatarios, dlprestatarios, prestamos, dlprestamos, codigo);
