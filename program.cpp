@@ -8,39 +8,26 @@ int dlprestamos = 1;
 int dlprestatarios = 1;
 const int MAX=15;
 
-// Structs
-struct Categoria{
-    int codigoCategoria;
-    string descripcion;
-};
-
-struct Prestatario{
-    int codigoPrestatario;
-    string nombre;
-    string apellido;
-};
-
-struct Prestamo{
-    struct Categoria categoria; 
-    struct Prestatario prestatario;
-    string descripcion;
-    bool estado;
-};
-
 //Nodos
 // Structs
 struct NodoCategoria{
-    Categoria categoria;
+    int codigoCategoria;
+    string descripcion;
     NodoCategoria * sigCategoria;
 };
 
 struct NodoPrestatario{
-    Prestatario prestatario;
+    int codigoPrestatario;
+    string nombre;
+    string apellido;
     NodoPrestatario * sigPrestatario;
 };
 
 struct NodoPrestamo{
-    Prestamo prestamo;
+    string Categoria; 
+    string Prestatario;
+    string descripcion;
+    bool estado;
     NodoPrestamo * sigPrestamo;
 };
 
@@ -55,31 +42,29 @@ bool existe;
 string apellido;
 string nombre;
 // *****************************************************************************************************
-Prestatario prestatarios[15];
-Prestamo prestamos[15];
-Categoria categorias[15]; 
+ 
 
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Opcion 1 = Administrar y consultar Categorías y Prestatarios
 // funciones secundarias de la opcion 1
-NodoCategoria * guardarCat(NodoCategoria * inicio, NodoCategoria * nuevo){
-    nuevo->sigPersona=inicio;
+NodoCategoria * guardarCat(NodoCategoria * inicioCategoria, NodoCategoria * nuevo){
+    nuevo->sigCategoria=inicioCategoria;
     return nuevo;
 }
 
-NodoPrestatario * guardarPrestatario(NodoPrestatario * inicio, NodoPrestatario * nuevo){
-    nuevo->sigPrestatario=inicio;
+NodoPrestatario * guardarPrestatario(NodoPrestatario * inicioPrestatario, NodoPrestatario * nuevo){
+    nuevo->sigPrestatario=inicioPrestatario;
     return nuevo;
 }
 
-NodoPrestamo * guardarPrestamo(NodoPrestamo * inicio, NodoPrestamo * nuevo){
-    nuevo->sigPrestamo=inicio;
+NodoPrestamo * guardarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestamo * nuevo){
+    nuevo->sigPrestamo=inicioPrestamo;
     return nuevo;
 }
 
-void mostrarCategorias (NodoCategoria * inicio, NodoPrestamo * inicio){
-    for (NodoCategoria * i=inicio; i != nullptr; i = i->sigCategoria){
+void mostrarCategorias (NodoCategoria * inicioCategoria){
+    for (NodoCategoria *i=inicioCategoria; i != nullptr; i = i->sigCategoria){
         cout<<"codigo: "<<i->codigoCategoria<<" - ";
         cout<<"descripcion: "<<i->descripcion<<endl;
     }
@@ -92,62 +77,68 @@ void mostrarCategorias (NodoCategoria * inicio, NodoPrestamo * inicio){
 // void mostrarPrestamos ()
 
 // NodoCategoria * buscarCategoria ()
+/*void buscarprestamo(NodoPrestamo*inicioPrestamo){
+    for (NodoPrestamo* = i ; i!=nullptr;i=i->sigPrestamo)
+    {
+        if (i)
+        {
+            
+        }
+        
+    }
+    
+}
 
-NodoPrestamo * buscarPrestamo (NodoPrestamo * inicio, string descripcion){
-    NodoPrestamo * aux=inicio;
-    while (aux!= nullptr && aux->describir != descripcion){
+NodoPrestamo * buscarPrestamo (NodoPrestamo * inicioPrestamo){
+    NodoPrestamo * aux=inicioPrestamo;
+    while (aux!= nullptr && aux->descripcion != descripcion){
         aux = aux->sigPrestamo;
     }
     return aux;
 }
 
-NodoPrestatario * buscarPrestatario (NodoPrestatario * inicio, int codigo){
-    NodoPrestamo * aux=inicio;
-    while ( aux !=nullptr && aux->describir != descripcion){
-        aux = aux->sigPrestamo;
+NodoPrestatario * buscarPrestatario (NodoPrestatario * inicioPrestatario, int codigo){
+    NodoPrestatario * aux=inicioPrestatario;
+    while ( aux !=nullptr && aux->codigoPrestatario != codigoPrestatario){
+        aux = aux->sigPrestatario;
     }
     return aux;
 }
-
+*/
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Funciones principales de opcion 1
 
-NodoCategoria * agregarCategoria (NodoCategoria * inicio){
+NodoCategoria * agregarCategoria (NodoCategoria * inicioCategoria){
     string desc;
     NodoCategoria * nuevo;
     int codigo = 0;
     cout<<"ingrese la descripcion de la nueva categoria (X para salir): ";
     getline(cin>>ws, desc);   //pido que lo inrgese por teclado
-    for (int i=0; i<desc.length(); i++){  //transformo lo que se ingreso en mayusculas para evitar errores
-        desc[i]=toupper(desc[i]);
-    }
 
     while(desc != "X"){
         nuevo= new NodoCategoria;
         nuevo -> descripcion=desc;
 
         nuevo->codigoCategoria=codigo;
-        nuevo=sigCategoria=nullptr;
+        nuevo->sigCategoria=nullptr;
 
-        inicio=guardarCat(inicio, nuevo);
+        inicioCategoria=guardarCat(inicioCategoria, nuevo);
         codigo++;
 
     cout<<"ingrese la descripcion de la nueva categoria (X para salir): ";
-    getline(cin>>ws, desc);   //pido que lo inrgese por teclado
-    for (int i=0; i<desc.length(); i++){  //transformo lo que se ingreso en mayusculas para evitar errores
-        desc[i]=toupper(desc[i]);
-        }
+    getline(cin>>ws, desc);   //pido que lo inrgese por teclado;
+        
     }
-    return inicio;
+    return inicioCategoria;
 }
 // *****************************************************************************************************
-int modificarCategoria(NodoCategoria * inicio){
-    mostrarCategorias(inicio);
+void modificarCategoria(NodoCategoria * inicioCategoria){
+    mostrarCategorias(inicioCategoria);
     cout<<"ingrese el codigo de la categoria a modificar: ";
     cin>>codigo;
     string modificado;
-    for (NodoCategoria * i = inicio;i!=nullptr; i= i->sigCategoria){
+    for (NodoCategoria * i = inicioCategoria;i!=nullptr; i= i->sigCategoria){
         if (codigo== i->codigoCategoria){
             cout<<"Ingrese el nuevo nombre de la categoria: "<<endl;
             getline(cin>>ws, modificado);
@@ -812,9 +803,9 @@ int modificarCategoria(NodoCategoria * inicio){
 // funcion principal
 int main(){
     //Listas
-    NodoCategoria * inicio=nullptr;
-    NodoPrestamo * inicio=nullptr;
-    NodoPrestatario * inicio=nullptr;
+    NodoCategoria * inicioCategoria=nullptr;
+    NodoPrestamo * inicioPrestamo=nullptr;
+    NodoPrestatario * inicioPrestatario=nullptr;
 
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
@@ -841,22 +832,22 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        agregarCategoria(inicio);
+                        agregarCategoria(inicioCategoria);
                         break;
                     case 'b':
-                        modificarCategoria(inicio);
+                        modificarCategoria(inicioCategoria);
                         break;
                     case 'c':
-                        eliminarCategoria();           
+                        //eliminarCategoria();           
                         break;
                     case 'd':
-                        agregarPrestatario();
+                       // agregarPrestatario();
                         break;
                     case 'e':
-                        modificarPrestatario();
+                       // modificarPrestatario();
                         break;
                     case 'f':
-                        eliminarPrestatario();
+                       // eliminarPrestatario();
                         break;
                     case 'x':
                         break;
@@ -880,16 +871,16 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        agregarPrestamo();                
+                       // agregarPrestamo();                
                         break;
                     case 'b':
-                        modificarPrestamo();
+                       // modificarPrestamo();
                         break;
                     case 'c':
-                        eliminarPrestamo();
+                        //eliminarPrestamo();
                         break;
                     case 'd':
-                        devolverPrestamo();
+                       // devolverPrestamo();
                         break;
                     case 'e':
                         break;
@@ -913,16 +904,16 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        cantObjetosPorCategoria();
+                       // cantObjetosPorCategoria();
                         break;
                     case 'b':
-                        listadoPrestamosPorCategoria();
+                       // listadoPrestamosPorCategoria();
                         break;
                     case 'c':
-                        listadoPrestamosPorPrestatario();
+                       // listadoPrestamosPorPrestatario();
                         break;
                     case 'd':
-                        prestatariosConobjetosPrestados();
+                       // prestatariosConobjetosPrestados();
                         break;
                     case 'x': 
                         break;
