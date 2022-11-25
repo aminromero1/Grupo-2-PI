@@ -82,10 +82,10 @@ void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inic
     while(descripcion != "X" && descripcion != "x"){
         NodoCategoria * nuevo = new NodoCategoria;
         // si la lista esta vacia
-        if(inicioCategoria == NULL){
+        if(inicioCategoria == nullptr){
             nuevo->categoria.codigoCategoria = dlCategorias;
             nuevo->categoria.descripcion = descripcion;
-            nuevo->sigCategoria = NULL;
+            nuevo->sigCategoria = nullptr;
             inicioCategoria = nuevo;
             cout << "Categoria agregada con exito" << endl;
             cout << "   Descripcion: " << nuevo->categoria.descripcion << endl;
@@ -93,11 +93,11 @@ void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inic
         }
         else{
             NodoCategoria * aux = inicioCategoria;
-            while(aux->sigCategoria != NULL)
+            while(aux->sigCategoria != nullptr)
                 aux = aux->sigCategoria;
             nuevo->categoria.codigoCategoria = dlCategorias;
             nuevo->categoria.descripcion = descripcion;
-            nuevo->sigCategoria = NULL;
+            nuevo->sigCategoria = nullptr;
             aux->sigCategoria = nuevo;
             cout << "Categoria agregada con exito" << endl;
             cout << "   Descripcion: " << nuevo->categoria.descripcion << endl;
@@ -111,7 +111,7 @@ void agregarCategoria(string descripcion, int dlCategorias, NodoCategoria *&inic
 }
 
 
-        
+        // NodoCategoria * nuevo = new NodoCategoria;
         // nuevo->categoria.codigoCategoria = dlCategorias;
         // nuevo->categoria.descripcion = descripcion;
         // nuevo->sigCategoria = nullptr;
