@@ -159,19 +159,31 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
         cin >> codigo;
         
         while(codigo !=0){
-            if()
-            // for (NodoCategoria * i = inicioCategoria ; i != nullptr; i = i->sigCategoria){
-            //     if (i->categoria.codigoCategoria == codigo){
-            //         cout << "La descripcion de la categoria es: " << i->categoria.descripcion << endl;
-            //         cout << "***********************" << endl;
-            //         cout << "Ingrese la nueva descripcion de la categoria: "<<endl;
-            //         cin >> descripcion;
-            //         i->categoria.descripcion=descripcion;
-            //         cout << "Categoria modificada " << endl;
-            //         break;
-            //     }
-            //     break;
-            // }
+            if(inicioCategoria->categoria.codigoCategoria == codigo){
+                cout << "ingrese la nueva descripcion de la categoria: ";
+                cin >> descripcion;
+                inicioCategoria->categoria.descripcion = descripcion;
+                cout << "Categoria modificada: " << endl;
+                cout << "   Codigo: " << inicioCategoria->categoria.codigoCategoria << endl;
+                cout << "   Descripcion: " << inicioCategoria->categoria.descripcion << endl;
+            }
+            else{
+                NodoCategoria * aux = inicioCategoria;
+                while(aux->sigCategoria != nullptr && aux->sigCategoria->categoria.codigoCategoria != codigo){
+                    aux = aux->sigCategoria;
+                }
+                if(aux->sigCategoria != nullptr){
+                    cout << "ingrese la nueva descripcion de la categoria: ";
+                    cin >> descripcion;
+                    aux->sigCategoria->categoria.descripcion = descripcion;
+                    cout << "Categoria modificada: " << endl;
+                    cout << "   Codigo: " << aux->sigCategoria->categoria.codigoCategoria << endl;
+                    cout << "   Descripcion: " << aux->sigCategoria->categoria.descripcion << endl;
+                }
+                else{
+                    cout << "No existe la categoria con el codigo ingresado" << endl;
+                }
+            }
             cout << "ingrese el codigo de la categoria a modificar(0 para salir): ";
             cin >> codigo;   
         }
@@ -263,25 +275,36 @@ NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario, int 
 
         while(codigo != 0){
             if(existePrestatario(inicioPrestatario, codigo) == true){
-                for (NodoPrestatario * i = inicioPrestatario ; i != nullptr; i = i->sigPrestatario){
-                    if (codigo == i->prestatario.codigoPrestatario){
-                        cout << "El nombre del prestatario es: " << i->prestatario.nombre << " " << i->prestatario.apellido << endl;
-                        cout << "***********************" << endl;
-                        cout << "Ingrese el nuevo nombre del prestatario: "<<endl;
-                        cin >> nombre;
-                        i->prestatario.nombre = nombre;
-                        cout << "Ingrese el nuevo apellido del prestatario: "<<endl;
-                        cin >> apellido;
-                        i->prestatario.apellido = apellido;
-                        cout << "Prestatario modificado: " << endl;
-                        break;
+                if(inicioPrestatario->prestatario.codigoPrestatario == codigo){
+                    cout << "Ingrese el nuevo nombre del prestatario: ";
+                    cin >> nombre;
+                    inicioPrestatario->prestatario.nombre = nombre;
+                    cout << "Ingrese el nuevo apellido del prestatario: ";
+                    cin >> apellido;
+                    inicioPrestatario->prestatario.apellido = apellido;
+                    cout << "Prestatario modificado: " << endl;
+                    cout << "   Codigo: " << inicioPrestatario->prestatario.codigoPrestatario << endl;
+                    cout << "   Nombre: " << inicioPrestatario->prestatario.nombre << " " << inicioPrestatario->prestatario.apellido << endl;
+                }
+                else{
+                    NodoPrestatario * aux = inicioPrestatario;
+                    while(aux->sigPrestatario != nullptr && aux->sigPrestatario->prestatario.codigoPrestatario != codigo){
+                        aux = aux->sigPrestatario;
                     }
-                    break; 
-                }    
-            }
-            else{
-                cout << "No hay ningun prestatario con ese codigo" << endl;
-            }
+                    if(aux->sigPrestatario != nullptr){
+                        cout << "Ingrese el nuevo nombre del prestatario: ";
+                        cin >> nombre;
+                        aux->sigPrestatario->prestatario.nombre = nombre;
+                        cout << "Ingrese el nuevo apellido del prestatario: ";
+                        cin >> apellido;
+                        aux->sigPrestatario->prestatario.apellido = apellido;
+                        cout << "Prestatario modificado: " << endl;
+                        cout << "   Codigo: " << aux->sigPrestatario->prestatario.codigoPrestatario << endl;
+                        cout << "   Nombre: " << aux->sigPrestatario->prestatario.nombre << endl;
+                        cout << "   Apellido: " << aux->sigPrestatario->prestatario.apellido << endl;
+                    }
+                }
+            }          
             cout << "ingrese el codigo del prestatario a modificar(0 para salir): ";
             cin >> codigo;
         }
