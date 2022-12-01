@@ -115,6 +115,15 @@ bool existePrestatario(NodoPrestatario * inicioPrestatario, int codigo){
     return false;
 }
 
+void mostrarPrestatarios(NodoPrestatario * inicioPrestatario){
+    cout << "Prestatarios:" << endl;
+    for(NodoPrestatario * i = inicioPrestatario; i != nullptr; i = i->sigPrestatario){
+        cout << "   Codigo: " << i->prestatario.codigoPrestatario << endl;
+        cout << "   Nombre: " << i->prestatario.nombre << endl;
+        cout << "   Apellido: " << i->prestatario.apellido << endl;
+        cout << "****************" << endl;
+    }
+}
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Funciones principales de opcion 1
@@ -193,7 +202,7 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
 }
 // *****************************************************************************************************
 
-NodoCategoria * eliminarCategoria(NodoCategoria *&inicioCategoria, NodoPrestamo * inicioPrestamo, int codigo){
+NodoCategoria * eliminarCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo, int codigo){
     cout << "Eliminar categoria" << endl;
     mostrarCategorias(inicioCategoria);
     cout << "Ingrese el codigo de la categoria a eliminar(0 para salir): ";
@@ -211,12 +220,16 @@ NodoCategoria * eliminarCategoria(NodoCategoria *&inicioCategoria, NodoPrestamo 
                         inicioCategoria = inicioCategoria->sigCategoria;
                         aux = inicioCategoria;
                         delete aEliminar;
+                        cout << "Categoria eliminada" << endl;
+                        break;
                     }
                     else{
                         if (aux->sigCategoria != nullptr && aux->sigCategoria->categoria.codigoCategoria == codigo){
                             aEliminar = aux->sigCategoria;
                             aux->sigCategoria = aEliminar->sigCategoria;
                             delete aEliminar;
+                            cout << "Categoria eliminada" << endl;
+                            break;
                         }
                         else{
                             aux = aux->sigCategoria;
@@ -229,6 +242,8 @@ NodoCategoria * eliminarCategoria(NodoCategoria *&inicioCategoria, NodoPrestamo 
                 break;
             }
         }
+        cout << "Ingrese el codigo de la categoria a eliminar(0 para salir): ";
+        cin >> codigo;
     }
     return inicioCategoria;
 }
@@ -266,11 +281,12 @@ NodoPrestatario * agregarPrestatario(NodoPrestatario *&inicioPrestatario, string
 // *****************************************************************************************************
 NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario, int codigo, string nombre, string apellido){
     cout << "Modificar prestatario" << endl;
-
+    
     if(inicioPrestatario == nullptr){
         cout << "   No hay prestatarios cargados" << endl;
     }
     else{
+        mostrarPrestatarios(inicioPrestatario);
         cout << "Ingrese el codigo del prestatario a modificar(0 para salir): ";
         cin >> codigo;
 
@@ -316,6 +332,8 @@ NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario, int 
 // *****************************************************************************************************
 NodoPrestatario * eliminarPrestatario(NodoPrestatario *&inicioPrestatario, NodoPrestamo *&inicioPrestamo, int codigo){
     cout << "Eliminar prestatario" << endl;
+
+    mostrarPrestatarios(inicioPrestatario);
     cout << "Ingrese el codigo del prestatario a eliminar(0 para salir): " << endl;
     cin >> codigo;
 
@@ -367,16 +385,6 @@ bool existeCategoria(NodoCategoria * inicioCategoria, int codigo){
         }
     }
     return false;
-}
-
-void mostrarPrestatarios(NodoPrestatario * inicioPrestatario){
-    cout << "Prestatarios:" << endl;
-    for(NodoPrestatario * i = inicioPrestatario; i != nullptr; i = i->sigPrestatario){
-        cout << "   Codigo: " << i->prestatario.codigoPrestatario << endl;
-        cout << "   Nombre: " << i->prestatario.nombre << endl;
-        cout << "   Apellido: " << i->prestatario.apellido << endl;
-        cout << "****************" << endl;
-    }
 }
 
 void imprimirPrestamo(NodoPrestamo * nuevo){
@@ -656,7 +664,7 @@ NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
                 int j = 1;
                 while(aux !=nullptr){
                     for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
-                        if(i->prestamo.prestatario.codigoPrestatario == codigo){//*************************
+                        if(i->prestamo.prestatario.codigoPrestatario == codigo){
                             if(i->prestamo.estado == false){
                                 if(j == codigoAux){
                                     aEliminar = i;
@@ -770,11 +778,9 @@ void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * ini
         cout << "   Categoria: " << i->categoria.descripcion << endl;
         cout << "   Cantidad: " << cant << endl;
         cout << "****************" << endl;
-    
-    
+    }
     cout << "   Prestamos pendientes totales: "<< contadorPrestamosPendientes(inicioPrestamo) << endl;
     cout << "****************" << endl;
-    }
 }
 // *****************************************************************************************************
 
