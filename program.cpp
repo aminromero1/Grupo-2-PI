@@ -105,7 +105,7 @@ void mostrarCategorias(NodoCategoria * inicioCategoria){
 
 bool existePrestamo(NodoPrestamo * inicioPrestamo, int codigo){
     for (NodoPrestamo * aux = inicioPrestamo; aux != nullptr; aux = aux->sigPrestamo){
-        if (aux->prestamo.categoria.codigoCategoria == codigo){
+        if(aux->prestamo.categoria.codigoCategoria == codigo){
             return true;
         }
     }
@@ -180,7 +180,6 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
             cout << "ingrese el codigo de la categoria a modificar(0 para salir): ";
             cin >> codigo;   
         }
-        
     }
     return inicioCategoria;  
 }
@@ -373,7 +372,7 @@ void imprimirPrestamo(NodoPrestamo * nuevo){
 }
 
 void mostrarPrestamos(NodoPrestamo * inicioPrestamo, int codigo){
-    cout << "Prestamos:" << endl;
+    cout << "Prestamos pendientes:" << endl;
     int j = 1;
     for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
         if(i->prestamo.prestatario.codigoPrestatario == codigo){
@@ -386,6 +385,26 @@ void mostrarPrestamos(NodoPrestamo * inicioPrestamo, int codigo){
             }
             else{
                 cout << "El prestatario no tiene prestamos prendientes" << endl;
+            }
+        }
+        
+    }
+}
+
+void mostrarPrestamosFinalizados(NodoPrestamo * inicioPrestamo, int codigo){
+    cout << "Prestamos finalizados:" << endl;
+    int j = 1;
+    for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
+        if(i->prestamo.prestatario.codigoPrestatario == codigo){
+            if(i->prestamo.estado == false){
+                cout << "   Categoria: " << i->prestamo.categoria.descripcion << endl;
+                cout << "   Prestamo: " << i->prestamo.descripcion << endl;
+                cout << "   Numero de prestamo: " << j << endl;
+                cout << "****************" << endl;
+                j++;
+            }
+            else{
+                cout << "El prestatario no tiene prestamos finalizados" << endl;
             }
         }
         
@@ -603,7 +622,7 @@ NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPresta
 }
 
 // *****************************************************************************************************
-NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int &codPrestatario, int codigo){
+NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int codigo){
     cout << "Eliminar prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
     cout << "Ingrese el codigo del prestatario (0 para salir): ";
@@ -611,41 +630,39 @@ NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
     
     while(codigo != 0){
         if(existePrestatario(inicioPrestatario, codigo) == true){
-            cout << "Prestamos de: " << prestatarios[codigo].nombre << " " << prestatarios[codigo].apellido << endl;
-            for(int i = 0; i < codPrestamos; i++){
-                if(prestamos[i].prestatario.codigoPrestatario == codigo){
-                    if(prestamos[i].estado == true){
-                        cout << "   Categoria: " << prestamos[i].categoria.descripcion << endl;
-                        cout << "   Prestamo: " << prestamos[i].descripcion << endl;
-                        cout << "   Numero de prestamo: " << i << endl;
-                        cout << "*************************" << endl;  
-                    }
-                }
-            }
-            cout << "Ingrese el codigo del prestamo a eliminar (0 para salir): ";
+            mostrarPrestamosFinalizados(inicioPrestamo, codigo);
+            
+            cout << "Ingrese el codigo del prestamo a eliminar(0 para salir): ";
             int codigoAux;
             cin >> codigoAux;
 
             while(codigoAux != 0){
-                for(int i = 0; i < codPrestamos; i++){
-                    if(prestamos[i].prestatario.codigoPrestatario == codigo){
-                        if(prestamos[i].estado == true){
-                            if(i == codigoAux){
-                                for(int j = i; j < codPrestatario; j++){
-                                    prestatarios[j] = prestatarios[j+1];
+                NodoPrestamo * aux = inicioPrestamo;
+                NodoPrestamo * aEliminar;
+                int j = 1;
+                while(aux !=nullptr){
+                    for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
+                        if(i->prestamo.prestatario.codigoPrestatario == codigo){//*************************
+                            if(i->prestamo.estado == false){
+                                if(j == codigoAux){
+                                    aEliminar = i;
+                                    aux->sigPrestamo = i->sigPrestamo;
+                                    delete aEliminar;
+                                    cout << "Prestamo eliminado con exito" << endl;
                                 }
-                                codPrestatario--;
-                                cout << "Prestamo eliminado con exito" << endl;
+                                else{
+                                    j++;
+                                }
+                            }
+                            else{
+                                cout << "El prestatario no tiene prestamos prendientes" << endl;
                             }
                         }
-                    }
-                    else{
-                    cout << "El prestamo no existe" << endl;
+                        else{
+                        cout << "El prestamo no existe" << endl;
+                        }
                     }
                 }
-                
-                cout << "Ingrese el codigo del prestamo a devolver (0 para salir): ";
-                cin >> codigoAux;
             }
         }
         else{
@@ -654,12 +671,12 @@ NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
         cout << "Ingrese el codigo del prestatario (0 para salir): ";
         cin >> codigo;
     }
-    return 1;
+    return inicioPrestamo;
 }
 
 
 // *****************************************************************************************************
-int devolverPrestamo(NodoPrestatario * inicioPrestatario, int &codPrestatario, Prestamo prestamos[], int &codPrestamos, int codigo){
+NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int codigo){
     cout << "Devolver prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
     cout << "Ingrese el codigo del prestatario (0 para salir): ";
@@ -667,36 +684,36 @@ int devolverPrestamo(NodoPrestatario * inicioPrestatario, int &codPrestatario, P
     
     while(codigo != 0){
         if(existePrestatario(inicioPrestatario, codigo) == true){
-            cout << "Prestamos de: " << prestatarios[codigo].nombre << " " << prestatarios[codigo].apellido << endl;
-            for(int i = 0; i < codPrestamos; i++){
-                if(prestamos[i].prestatario.codigoPrestatario == codigo){
-                    if(prestamos[i].estado == true){
-                        cout << "   Categoria: " << prestamos[i].categoria.descripcion << endl;
-                        cout << "   Prestamo: " << prestamos[i].descripcion << endl;
-                        cout << "   Numero de prestamo: " << i << endl;
-                        cout << "*************************" << endl;  
-                    }
-                }
-            }
-            cout << "Ingrese el codigo del prestamo a devolver (0 para salir): ";
+            mostrarPrestamos(inicioPrestamo, codigo);
+            
+            cout << "Ingrese el codigo del prestamo a devolver(0 para salir): ";
             int codigoAux;
             cin >> codigoAux;
 
             while(codigoAux != 0){
-                for(int i = 0; i < codPrestamos; i++){
-                    if(prestamos[i].prestatario.codigoPrestatario == codigo){
-                        if(prestamos[i].estado == true){
-                            if(i == codigoAux){
-                                prestamos[i].estado = false;
-                                cout << "Prestamo devuelto con exito" << endl;
+                int j = 1;
+                for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
+                    if(i->prestamo.prestatario.codigoPrestatario == codigo){
+                        if(i->prestamo.estado == true){
+                            if(j == codigoAux){
+                                i->prestamo.estado = false;
+                                cout << "   Prestamo devuelto con exito" << endl;
+                                cout << "   **************************************" << endl;  
+                                break;                             
                             }
+                            else{
+                                j++;
+                            }
+                        }
+                        else{
+                            cout << "El prestatario no tiene prestamos pendientes" << endl;
+                            break;
                         }
                     }
                     else{
                     cout << "El prestamo no existe" << endl;
                     }
                 }
-                
                 cout << "Ingrese el codigo del prestamo a devolver (0 para salir): ";
                 cin >> codigoAux;
             }
@@ -707,63 +724,70 @@ int devolverPrestamo(NodoPrestatario * inicioPrestatario, int &codPrestatario, P
         cout << "Ingrese el codigo del prestatario (0 para salir): ";
         cin >> codigo;
     }
-    return 1;
+    return inicioPrestamo;
 }
+
     
 // *****************************************************************************************************
 // *****************************************************************************************************
 
 // Opcion 3 = Consultar Préstamos
 //      Funciones secundarias de la opcion 3
-int contadorPrestamosPendientes(Prestamo prestamos[], int &codPrestamos){
+int contadorPrestamosPendientes( NodoPrestamo * inicioPrestamo){
     int cantObjPen=0;
-    for(int j=0; j < codPrestamos; j++){
-        if(prestamos[j].estado == true){
+    for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
+        if(i->prestamo.estado == true){
             cantObjPen++;
         }
     }
     return cantObjPen;
 }
+
 // *****************************************************************************************************
 // *****************************************************************************************************
 
 // Opcion 3 = Consultar Préstamos
-void cantObjetosPorCategoria(Categoria categorias[], int &codCategoria, Prestamo prestamos[], int &codPrestamos){
+void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo, int codigo){
     cout << "Cantidad de objetos por categoria" << endl;
-    for(int i = 0; i < codCategoria; i++){
+    for(NodoCategoria * i = inicioCategoria; i != nullptr; i = i->sigCategoria){
         int cant = 0;
-        for(int j = 0; j < codPrestamos; j++){
-            if(prestamos[j].categoria.codigoCategoria == categorias[i].codigoCategoria){
-                cant++;
+        for(NodoPrestamo * j = inicioPrestamo; j != nullptr; j = j->sigPrestamo){
+            if(j->prestamo.prestatario.codigoPrestatario == codigo){
+                if(j->prestamo.categoria.codigoCategoria == i->categoria.codigoCategoria){
+                    cant++;
+                }
             }
         }
-        cout << "   Categoria: " << categorias[i].descripcion << endl;
+        cout << "   Categoria: " << i->categoria.descripcion << endl;
         cout << "   Cantidad: " << cant << endl;
         cout << "****************" << endl;
-    }
     
-    cout << "   Prestamos pendientes totales: "<< contadorPrestamosPendientes(prestamos, codPrestamos) << endl;
+    
+    cout << "   Prestamos pendientes totales: "<< contadorPrestamosPendientes(inicioPrestamo) << endl;
     cout << "****************" << endl;
-
+    }
 }
-
 // *****************************************************************************************************
 
-int listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria, int &codCategoria, Prestatario prestatarios[], int &codPrestatario,Prestamo prestamos[], int &codPrestamos, int codigo){
+void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo, int codigo){
     cout << "Listado de prestamos pendientes por categoria" << endl;
+    mostrarCategorias(inicioCategoria);
+    cout << "*****************" << endl;
     cout << "Ingrese el codigo de la categoria(0 para salir): ";
     cin >> codigo;
 
     while(codigo != 0){
         if(existeCategoria(inicioCategoria, codigo) == true){
-            for(int i = 0; i < codPrestatario; i++){
-                for(int j = 0; j < codPrestamos; j++){
-                    if(prestamos[j].prestatario.codigoPrestatario == prestatarios[i].codigoPrestatario && prestamos[j].categoria.codigoCategoria == codigo){
-                        cout << "   Prestatario: " << prestatarios[i].nombre << " " << prestatarios[i].apellido << endl;
-                        cout << "   Categoria: " << prestamos[j].categoria.descripcion << endl;
-                        if(prestamos[j].estado == true){
-                            cout << "       Prestamo: " << prestamos[j].descripcion << endl;
-                            cout << "****************" << endl;
+            for(NodoPrestatario * aux = inicioPrestatario; aux != nullptr; aux = aux->sigPrestatario){
+                for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
+                    if(i->prestamo.prestatario.codigoPrestatario == aux->prestatario.codigoPrestatario){
+                        if(i->prestamo.categoria.codigoCategoria == codigo){
+                            cout << "   Prestatario: " << i->prestamo.prestatario.nombre << " " << i->prestamo.prestatario.apellido << endl;
+                            cout << "   Categoria: " << i->prestamo.categoria.descripcion << endl;
+                            if(i->prestamo.estado == true){
+                                cout << "   Prestamo: " << i->prestamo.descripcion << endl;
+                                cout << "****************" << endl;
+                            }
                         }
                     }
                 }
@@ -774,8 +798,7 @@ int listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria, int &codCatego
         }
         cout << "Ingrese el codigo de la categoria(0 para salir): ";
         cin >> codigo;
-    }
-    return 1;
+}
 }
 
 // *****************************************************************************************************
@@ -824,24 +847,22 @@ void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &codPrestamos, Pre
 }
 
 // *****************************************************************************************************
-int prestatariosConobjetosPrestados(Prestamo prestamos[], int &codPrestamos, Prestatario prestatarios[], int &codPrestatario){
+void prestatariosConobjetosPrestados(NodoPrestamo * inicioPrestamo,NodoPrestatario * inicioPrestatario){
     cout << "Prestatarios con objetos prestados" << endl;
     //muestra los prestatarios que tienen objetos prestados
-     for(int i = 0; i < codPrestatario; i++){
+    for(NodoPrestatario * aux = inicioPrestatario; aux != nullptr; aux = aux->sigPrestatario){
         int cant = 0;
-        for(int j = 0; j < codPrestamos; j++){
-            if(prestamos[j].prestatario.codigoPrestatario == prestatarios[i].codigoPrestatario && prestamos[j].estado == true){
+        for(NodoPrestamo * aux2 = inicioPrestamo; aux2 != nullptr; aux2 = aux2->sigPrestamo){
+            if(aux2->prestamo.prestatario.codigoPrestatario == aux->prestatario.codigoPrestatario && aux2->prestamo.estado == true){
                 cant++;
             }
         }
         if(cant > 0){
-            cout << "   Nombre: " << prestatarios[i].nombre << endl;
-            cout << "   Apellido: " << prestatarios[i].apellido << endl;
-            cout << "   Cantidad de prestamos prendientes: " << cant << endl;
-            cout << "*****************************" << endl;  
+            cout << "   Prestatario: " << aux->prestatario.nombre << " " << aux->prestatario.apellido << endl;
+            cout << "   Cantidad de prestamos: " << cant << endl;
+            cout << "****************" << endl;
         }
-     }
-    return 1;
+    }
 }
 //*####################################################################################################
 
@@ -916,16 +937,16 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                       inicioPrestamo = agregarPrestamo(inicioPrestamo, inicioCategoria, codCategoria, codPrestamos, inicioPrestatario, codPrestatario, opcion, codigo, descripcion);                
+                        inicioPrestamo = agregarPrestamo(inicioPrestamo, inicioCategoria, codCategoria, codPrestamos, inicioPrestatario, codPrestatario, opcion, codigo, descripcion);                
                         break;
                     case 'b':
                         inicioPrestamo = modificarPrestamo(inicioPrestatario, inicioPrestamo, codigo, descripcion);
                         break;
                     case 'c':
-                        // eliminarPrestamo();
+                        inicioPrestamo = eliminarPrestamo(inicioPrestamo, inicioPrestatario, codigo);
                         break;
                     case 'd':
-                       // devolverPrestamo();
+                        inicioPrestamo = devolverPrestamo(inicioPrestamo, inicioPrestatario, codigo);
                         break;
                     case 'e':
                         break;
