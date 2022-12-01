@@ -4,9 +4,8 @@ using namespace std;
 
 // *****************************************************************************************************
 int codCategoria = 1;
-int codPrestamos = 1;
 int codPrestatario = 1;
-int MAX = 100;
+
 // Structs
 struct Categoria{
     int codigoCategoria;
@@ -48,12 +47,7 @@ string descripcion;
 int codigo;
 bool existe;
 string apellido;
-string nombre;
-
-// *****************************************************************************************************
-Prestatario prestatarios[15];
-Prestamo prestamos[15];
-Categoria categorias[15]; 
+string nombre; 
 
 // *****************************************************************************************************
 // *****************************************************************************************************
@@ -415,12 +409,11 @@ void mostrarPrestamosFinalizados(NodoPrestamo * inicioPrestamo, int codigo){
 // *****************************************************************************************************
 // Funciones principales de opcion 2
 
-NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * inicioCategoria, int &codCategoria,  int &codPrestamos, NodoPrestatario * inicioPrestatario, int &codPrestatario, char opcion, int codigo, string descripcion){
+NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * inicioCategoria, NodoPrestatario * inicioPrestatario, char opcion, int codigo, string descripcion){
     cout << "Agregar prestamo" << endl;
     cout << "Desea ver las categorias existentes? (S/N) (X para salir): ";
     cin >> opcion;
 
-    
     NodoPrestamo * nuevo;
     nuevo = new NodoPrestamo;
     
@@ -507,7 +500,6 @@ NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * in
                     // imprimimos el prestamo agregado
                     imprimirPrestamo(nuevo);
                     inicioPrestamo=guardarPrestamo(inicioPrestamo, nuevo);
-                    codPrestamos++;
                     break;
                 }
                 else{
@@ -541,7 +533,6 @@ NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * in
 
                     imprimirPrestamo(nuevo);
                     inicioPrestamo=guardarPrestamo(inicioPrestamo, nuevo);
-                    codPrestamos++;
                     break;
                 }
                 else{
@@ -566,7 +557,6 @@ NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * in
 }
 
 // *****************************************************************************************************
-
 NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo, int codigo, string descripcion){
     cout << "Modificar prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
@@ -674,7 +664,6 @@ NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
     return inicioPrestamo;
 }
 
-
 // *****************************************************************************************************
 NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int codigo){
     cout << "Devolver prestamo" << endl;
@@ -726,13 +715,12 @@ NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
     }
     return inicioPrestamo;
 }
-
     
 // *****************************************************************************************************
 // *****************************************************************************************************
 
 // Opcion 3 = Consultar Préstamos
-//      Funciones secundarias de la opcion 3
+// Funciones secundarias de la opcion 3
 int contadorPrestamosPendientes( NodoPrestamo * inicioPrestamo){
     int cantObjPen=0;
     for(NodoPrestamo * i = inicioPrestamo; i != nullptr; i = i->sigPrestamo){
@@ -745,7 +733,6 @@ int contadorPrestamosPendientes( NodoPrestamo * inicioPrestamo){
 
 // *****************************************************************************************************
 // *****************************************************************************************************
-
 // Opcion 3 = Consultar Préstamos
 void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo, int codigo){
     cout << "Cantidad de objetos por categoria" << endl;
@@ -798,7 +785,7 @@ void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatari
         }
         cout << "Ingrese el codigo de la categoria(0 para salir): ";
         cin >> codigo;
-}
+    }
 }
 
 // *****************************************************************************************************
@@ -936,7 +923,7 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        inicioPrestamo = agregarPrestamo(inicioPrestamo, inicioCategoria, codCategoria, codPrestamos, inicioPrestatario, codPrestatario, opcion, codigo, descripcion);                
+                        inicioPrestamo = agregarPrestamo(inicioPrestamo, inicioCategoria, inicioPrestatario, opcion, codigo, descripcion);                
                         break;
                     case 'b':
                         inicioPrestamo = modificarPrestamo(inicioPrestatario, inicioPrestamo, codigo, descripcion);
@@ -969,16 +956,16 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                       // cantObjetosPorCategoria();
+                        cantObjetosPorCategoria(inicioCategoria, inicioPrestamo, codigo);
                         break;
                     case 'b':
-                       // listadoPrestamosPorCategoria();
+                        listadoPrestamosPorCategoria(inicioCategoria, inicioPrestatario, inicioPrestamo, codigo);
                         break;
                     case 'c':
-                       // listadoPrestamosPorPrestatario();
+                        listadoPrestamosPorPrestatario(inicioCategoria, inicioPrestatario, inicioPrestamo, opcion,codigo);
                         break;
                     case 'd':
-                       // prestatariosConobjetosPrestados();
+                        prestatariosConobjetosPrestados(inicioPrestamo, inicioPrestatario);
                         break;
                     case 'x': 
                         break;
