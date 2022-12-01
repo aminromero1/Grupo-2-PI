@@ -49,6 +49,7 @@ int codigo;
 bool existe;
 string apellido;
 string nombre;
+
 // *****************************************************************************************************
 Prestatario prestatarios[15];
 Prestamo prestamos[15];
@@ -89,18 +90,8 @@ NodoPrestatario * guardarPrestatario(NodoPrestatario * inicioPrestatario, NodoPr
 }
 
 NodoPrestamo * guardarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestamo * nuevo){
-    if (inicioPrestamo == nullptr)
-        inicioPrestamo = nuevo;
-    else
-    {
-        NodoPrestamo *aux = inicioPrestamo;
-        while (aux->sigPrestamo != nullptr)
-        {
-            aux = aux->sigPrestamo;
-        }
-        aux->sigPrestamo = nuevo;
-    }
-    return inicioPrestamo;
+    nuevo->sigPrestamo = inicioPrestamo;
+    return nuevo;
 }
 
 void mostrarCategorias(NodoCategoria * inicioCategoria){
@@ -181,7 +172,7 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
                     cout << "Ingrese la nueva descripcion de la categoria: "<<endl;
                     cin >> descripcion;
                     i->categoria.descripcion=descripcion;
-                    cout << "Categoria modificada: " << endl;
+                    cout << "Categoria modificada " << endl;
                     break;
                 } 
                 break;
@@ -566,7 +557,6 @@ NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPresta
     
     while(codigo != 0){
         if(existePrestatario(inicioPrestatario, codigo) == true){
-            // mostrar prestamos del prestatario
             mostrarPrestamos(inicioPrestamo, codigo);
             
             cout << "Ingrese el codigo del prestamo a modificar(0 para salir): ";
@@ -613,7 +603,7 @@ NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPresta
 }
 
 // *****************************************************************************************************
-int eliminarPrestamo(Prestamo prestamos[], int &codPrestamos, NodoPrestatario * inicioPrestatario, int &codPrestatario, int codigo){
+NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int &codPrestatario, int codigo){
     cout << "Eliminar prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
     cout << "Ingrese el codigo del prestatario (0 para salir): ";
