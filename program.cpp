@@ -182,6 +182,7 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
                 }
                 else{
                     cout << "No existe la categoria con el codigo ingresado" << endl;
+                    break;
                 }
             }
             cout << "ingrese el codigo de la categoria a modificar(0 para salir): ";
@@ -762,10 +763,8 @@ void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * ini
     for(NodoCategoria * i = inicioCategoria; i != nullptr; i = i->sigCategoria){
         int cant = 0;
         for(NodoPrestamo * j = inicioPrestamo; j != nullptr; j = j->sigPrestamo){
-            if(j->prestamo.prestatario.codigoPrestatario == codigo){
-                if(j->prestamo.categoria.codigoCategoria == i->categoria.codigoCategoria){
-                    cant++;
-                }
+            if(j->prestamo.categoria.codigoCategoria == i->categoria.codigoCategoria){
+                cant++;
             }
         }
         cout << "   Categoria: " << i->categoria.descripcion << endl;
