@@ -802,48 +802,47 @@ void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatari
 }
 
 // *****************************************************************************************************
-void listadoPrestamosPorPrestatario(Prestamo prestamos[], int &codPrestamos, Prestatario prestatarios[], int &codPrestatario, char opcion, int codigo){
+void listadoPrestamosPorPrestatario(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo, char opcion, int codigo){
     cout << "Listado de prestamos por prestatario" << endl;
     cout << "   ¿Desea ver el listado por categoria(C) o Prestatario(P)?(X para salir) :";
     cin >> opcion;
-
-    if(opcion == 'C' || opcion == 'c'){
+    opcion = toupper(opcion);
+    if(opcion == 'C'){
         cout << "Listado de prestamos por categoria" << endl;
         // recorremos el array de prestamos
         // por cada categoria imprimimos el nombre y todos los prestamos de esa categoria
-        for(int i = 0; i < codPrestamos; i++){
-            cout << "   Categoria: " << prestamos[i].categoria.descripcion << endl;
-            for(int j = 0; j < codPrestamos; j++){
-                if(prestamos[j].categoria.codigoCategoria == prestamos[i].categoria.codigoCategoria){
-                    cout << "       Prestamo: " << prestamos[j].descripcion << endl;
-                    cout << "       Prestatario: " << prestamos[j].prestatario.nombre << " " << prestamos[j].prestatario.apellido << endl;
-                    cout << "*******************" << endl;
+        for(NodoCategoria * i = inicioCategoria; i != nullptr; i = i->sigCategoria){
+            cout << "   Categoria: " << i->categoria.descripcion << endl;
+            for(NodoPrestamo * j = inicioPrestamo; j != nullptr; j = j->sigPrestamo){
+                if(j->prestamo.categoria.codigoCategoria == i->categoria.codigoCategoria){
+                    cout << "   Prestamo: " << j->prestamo.descripcion << endl;
+                    cout << "   Prestatario: " << j->prestamo.prestatario.nombre << " " << j->prestamo.prestatario.apellido << endl;
+                    cout << "****************" << endl;
                 }
             }
         }
     }
-    else if(opcion == 'P' || opcion == 'p'){
+    else if(opcion == 'P'){
         cout << "Listado de prestamos por prestatario" << endl;
         // recorremos el array de prestamos
         // por cada prestatario imprimimos el nombre y todos los prestamos de ese prestatario
-        for(int i = 0; i < codPrestamos; i++){
-            cout << "   Prestatario: " << prestamos[i].prestatario.nombre << " " << prestamos[i].prestatario.apellido << endl;
-            for(int j = 0; j < codPrestamos; j++){
-                if(prestamos[j].prestatario.codigoPrestatario == prestamos[i].prestatario.codigoPrestatario){
-                    cout << "       Prestamo: " << prestamos[j].descripcion << endl;
-                    cout << "       Categoria: " << prestamos[j].categoria.descripcion << endl;
-                    cout << "*******************" << endl;
+        for(NodoPrestatario * i = inicioPrestatario; i != nullptr; i = i->sigPrestatario){
+            cout << "   Prestatario: " << i->prestatario.nombre << " " << i->prestatario.apellido << endl;
+            for(NodoPrestamo * j = inicioPrestamo; j != nullptr; j = j->sigPrestamo){
+                if(j->prestamo.prestatario.codigoPrestatario == i->prestatario.codigoPrestatario){
+                    cout << "   Prestamo: " << j->prestamo.descripcion << endl;
+                    cout << "   Categoria: " << j->prestamo.categoria.descripcion << endl;
+                    cout << "****************" << endl;
                 }
             }
         }
     }
-    else if(opcion == 'X' || opcion == 'x'){
+    else if(opcion == 'X'){
         cout << "Saliendo..." << endl;
     }
     else{
         cout << "Opcion incorrecta" << endl;
     }
-    
 }
 
 // *****************************************************************************************************
