@@ -758,7 +758,7 @@ int contadorPrestamosPendientes( NodoPrestamo * inicioPrestamo){
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Opcion 3 = Consultar Préstamos
-void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo, int codigo){
+void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo){
     cout << "Cantidad de objetos por categoria" << endl;
     for(NodoCategoria * i = inicioCategoria; i != nullptr; i = i->sigCategoria){
         int cant = 0;
@@ -978,7 +978,7 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        cantObjetosPorCategoria(inicioCategoria, inicioPrestamo, codigo);
+                        cantObjetosPorCategoria(inicioCategoria, inicioPrestamo);
                         break;
                     case 'b':
                         listadoPrestamosPorCategoria(inicioCategoria, inicioPrestatario, inicioPrestamo, codigo);
