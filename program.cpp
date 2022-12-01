@@ -159,18 +159,19 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
         cin >> codigo;
         
         while(codigo !=0){
-            for (NodoCategoria * i = inicioCategoria ; i != nullptr; i = i->sigCategoria){
-                if (codigo == i->categoria.codigoCategoria){
-                    cout << "La descripcion de la categoria es: " << i->categoria.descripcion << endl;
-                    cout << "***********************" << endl;
-                    cout << "Ingrese la nueva descripcion de la categoria: "<<endl;
-                    cin >> descripcion;
-                    i->categoria.descripcion=descripcion;
-                    cout << "Categoria modificada " << endl;
-                    break;
-                } 
-                break;
-            }
+            if()
+            // for (NodoCategoria * i = inicioCategoria ; i != nullptr; i = i->sigCategoria){
+            //     if (i->categoria.codigoCategoria == codigo){
+            //         cout << "La descripcion de la categoria es: " << i->categoria.descripcion << endl;
+            //         cout << "***********************" << endl;
+            //         cout << "Ingrese la nueva descripcion de la categoria: "<<endl;
+            //         cin >> descripcion;
+            //         i->categoria.descripcion=descripcion;
+            //         cout << "Categoria modificada " << endl;
+            //         break;
+            //     }
+            //     break;
+            // }
             cout << "ingrese el codigo de la categoria a modificar(0 para salir): ";
             cin >> codigo;   
         }
@@ -400,8 +401,7 @@ void mostrarPrestamosFinalizados(NodoPrestamo * inicioPrestamo, int codigo){
             else{
                 cout << "El prestatario no tiene prestamos finalizados" << endl;
             }
-        }
-        
+        }     
     }
 }
 
