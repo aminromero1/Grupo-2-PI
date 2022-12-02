@@ -45,7 +45,6 @@ int opcionPrincipal;
 char opcion;
 string descripcion;
 int codigo;
-bool existe;
 string apellido;
 string nombre; 
 
@@ -128,9 +127,10 @@ void mostrarPrestatarios(NodoPrestatario * inicioPrestatario){
 // *****************************************************************************************************
 // Funciones principales de opcion 1
 
-NodoCategoria * agregarCategoria (NodoCategoria * inicioCategoria, int codigo, string descripcion, int &codCategoria){
+NodoCategoria * agregarCategoria (NodoCategoria * inicioCategoria, int &codCategoria){ 
     cout<<"ingrese la descripcion de la nueva categoria (X para salir): ";
-    cin >> descripcion;
+    
+    getline(cin>>ws, descripcion);
 
     while(descripcion != "X" && descripcion != "x"){
         NodoCategoria * nuevo;
@@ -154,17 +154,16 @@ NodoCategoria * agregarCategoria (NodoCategoria * inicioCategoria, int codigo, s
     return inicioCategoria;
 }
 // *****************************************************************************************************
-NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, string descripcion){
+NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria){
     cout << "Modificar categoria: " << endl;
-    
-    // si la lista esta vacia
+
     if(inicioCategoria == nullptr){
         cout << "   No hay categorias cargadas" << endl;
     }
     else{
         mostrarCategorias(inicioCategoria);
 
-        cout << "ingrese el codigo de la categoria a modificar(0 para salir): ";
+        cout << "Ingrese el codigo de la categoria a modificar(0 para salir): ";
         cin >> codigo;
         
         while(codigo !=0){
@@ -202,8 +201,9 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria, int codigo, 
 }
 // *****************************************************************************************************
 
-NodoCategoria * eliminarCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo, int codigo){
+NodoCategoria * eliminarCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo){
     cout << "Eliminar categoria" << endl;
+
     mostrarCategorias(inicioCategoria);
     cout << "Ingrese el codigo de la categoria a eliminar(0 para salir): ";
     cin >> codigo;
@@ -249,7 +249,7 @@ NodoCategoria * eliminarCategoria(NodoCategoria * inicioCategoria, NodoPrestamo 
 }
 
 // *****************************************************************************************************
-NodoPrestatario * agregarPrestatario(NodoPrestatario *&inicioPrestatario, string nombre, string apellido, int &codPrestatario){
+NodoPrestatario * agregarPrestatario(NodoPrestatario *&inicioPrestatario,  int &codPrestatario){
     cout << "Agregar prestatario" << endl;
 
     cout << "Ingrese el nombre del prestatario(X para salir): ";
@@ -279,7 +279,7 @@ NodoPrestatario * agregarPrestatario(NodoPrestatario *&inicioPrestatario, string
 }
 
 // *****************************************************************************************************
-NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario, int codigo, string nombre, string apellido){
+NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario){
     cout << "Modificar prestatario" << endl;
     
     if(inicioPrestatario == nullptr){
@@ -330,7 +330,7 @@ NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario, int 
 }
 
 // *****************************************************************************************************
-NodoPrestatario * eliminarPrestatario(NodoPrestatario *&inicioPrestatario, NodoPrestamo *&inicioPrestamo, int codigo){
+NodoPrestatario * eliminarPrestatario(NodoPrestatario *&inicioPrestatario, NodoPrestamo *&inicioPrestamo){
     cout << "Eliminar prestatario" << endl;
 
     mostrarPrestatarios(inicioPrestatario);
@@ -389,7 +389,7 @@ bool existeCategoria(NodoCategoria * inicioCategoria, int codigo){
 
 void imprimirPrestamo(NodoPrestamo * nuevo){
     cout << "**********************************" << endl;
-    cout << "Prestamo agregado: " << endl;
+    cout << "Prestamo agregado con exito: " << endl;
     cout << "   Categoria Codigo: " << nuevo->prestamo.categoria.codigoCategoria << endl;
     cout << "   Categoria Descripcion: " << nuevo->prestamo.categoria.descripcion << endl;
     cout << "   Prestatario Codigo: " << nuevo->prestamo.prestatario.codigoPrestatario << endl;
@@ -441,155 +441,85 @@ void mostrarPrestamosFinalizados(NodoPrestamo * inicioPrestamo, int codigo){
 // *****************************************************************************************************
 // Funciones principales de opcion 2
 
-NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * inicioCategoria, NodoPrestatario * inicioPrestatario, char opcion, int codigo, string descripcion){
+NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * inicioCategoria, NodoPrestatario * inicioPrestatario){
     cout << "Agregar prestamo" << endl;
     cout << "Desea ver las categorias existentes? (S/N) (X para salir): ";
     cin >> opcion;
+    opcion = toupper(opcion);
 
-    NodoPrestamo * nuevo;
-    nuevo = new NodoPrestamo;
-    
-    switch (tolower(opcion))
-    {
-        case 's':
-            mostrarCategorias(inicioCategoria);
+    while(opcion != 'X'){
+        if(opcion == 'S' or opcion == 'N'){
+            if(opcion == 'S'){
+                mostrarCategorias(inicioCategoria);
+            }
             cout << "Ingrese el codigo de la categoria(0 para salir): ";
             cin >> codigo;
-
             while(codigo != 0){
                 if(existeCategoria(inicioCategoria, codigo) == true){
+                    NodoPrestamo * nuevo;
+                    nuevo = new NodoPrestamo;
                     nuevo->prestamo.categoria.codigoCategoria = codigo;
                     for(NodoCategoria * i = inicioCategoria; i != nullptr; i = i->sigCategoria){
                         if(i->categoria.codigoCategoria == codigo){
                             nuevo->prestamo.categoria.descripcion = i->categoria.descripcion;
                         }
                     }
-                    break;
-                }else{
-                    cout << "No existe la categoria" << endl;
-                    break;
-                }
-                cout << "Ingrese el codigo de la categoria(0 para salir): ";
-                cin >> codigo;  
-            }
-            break;
-        case 'n':
-            cout << "Ingrese el codigo de la categoria(0 para salir): ";
-            cin >> codigo;
-             while(codigo != 0){
-                if(existeCategoria(inicioCategoria, codigo) == true){
-                    nuevo->prestamo.categoria.codigoCategoria = codigo;
-                    for(NodoCategoria * i = inicioCategoria; i != nullptr; i = i->sigCategoria){
-                        if(i->categoria.codigoCategoria == codigo){
-                            nuevo->prestamo.categoria.descripcion = i->categoria.descripcion;
+                    cout << "¿Desea ver los actuales prestatarios? (S/N): "; 
+                    cin >> opcion;
+                    opcion = toupper(opcion);
+                    while(opcion != 'X'){
+                        if(opcion == 'S' or opcion == 'N'){
+                            if(opcion == 'S'){
+                                mostrarPrestatarios(inicioPrestatario);
+                            }
+                            cout << "Ingrese el codigo del prestatario(0 para salir): ";
+                            cin >> codigo;
+                            while(codigo != -243){
+                                if(existePrestatario(inicioPrestatario, codigo) == true){
+                                    nuevo->prestamo.prestatario.codigoPrestatario = codigo;
+                                    for(NodoPrestatario * i = inicioPrestatario; i != nullptr; i = i->sigPrestatario){
+                                        if(i->prestatario.codigoPrestatario == codigo){
+                                            nuevo->prestamo.prestatario.nombre = i->prestatario.nombre;
+                                            nuevo->prestamo.prestatario.apellido = i->prestatario.apellido;
+                                        }
+                                    }
+                                    cout << "Ingrese la descripcion del prestamo: ";
+                                    cin >> descripcion;
+                                    nuevo->prestamo.descripcion = descripcion;
+                                    nuevo->prestamo.estado = true;
+                                
+                                    imprimirPrestamo(nuevo);
+                                    inicioPrestamo=guardarPrestamo(inicioPrestamo, nuevo);
+                                    break;
+                                }
+                                else{
+                                    cout << "Ingrese un codigo valido(0 para salir): ";
+                                    cin >> codigo;
+                                }
+                            }
+                        }
+                        else{
+                            cout << "Opcion invalida, vuelva a intentarlo: ";
+                            cin >> opcion;
                         }
                     }
-                }else{
-                    cout << "No existe la categoria" << endl;
-                }
-                cout << "Ingrese el codigo de la categoria(0 para salir): ";
-                cin >> codigo;  
-            }
-            break;
-        case 'x':
-            cout << "Saliendo..." << endl;
-            break;
-
-        default:
-            cout << "Opcion invalida" << endl;
-            break;
-    }
-    // *PRESTATARIO*
-
-    cout << "¿Desea ver los actuales prestatarios? (S/N) (X para salir): "; 
-    cin >> opcion;
-
-    switch (tolower(opcion))
-    {
-
-        case 's':
-        {
-            mostrarPrestatarios(inicioPrestatario);
-            cout << "Ingrese el codigo del prestatario(0 para salir): ";
-            cin >> codigo;
-
-            while(codigo != 0){
-                if(existePrestatario(inicioPrestatario, codigo) == true){
-                    nuevo->prestamo.prestatario.codigoPrestatario = codigo;
-                    for(NodoPrestatario * i = inicioPrestatario; i != nullptr; i = i->sigPrestatario){
-                        if(i->prestatario.codigoPrestatario == codigo){
-                            nuevo->prestamo.prestatario.nombre = i->prestatario.nombre;
-                            nuevo->prestamo.prestatario.apellido = i->prestatario.apellido;
-                        }
-                    }
-                    cout << "Ingrese la descripcion del prestamo: ";
-                    cin >> descripcion;
-                    nuevo->prestamo.descripcion = descripcion;
-                    nuevo->prestamo.estado = true;
-                    
-                    cout << "Prestamo agregado con exito" << endl;
-
-                    // imprimimos el prestamo agregado
-                    imprimirPrestamo(nuevo);
-                    inicioPrestamo=guardarPrestamo(inicioPrestamo, nuevo);
                     break;
-                }
-                else{
-                    cout << "Ingrese un codigo valido" << endl;
-                }
-                cout << "Ingrese el codigo del prestatario(0 para salir): ";
-                cin >> codigo;
+                }else{
+                    cout << "No existe la categoria ingresada, vuelva a intentarlo: (0 para salir): ";
+                    cin >> codigo;    
+                } 
             }
-            break;
         }
-        case 'n':
-            {
-            cout << "Ingrese el codigo del prestatario(0 para salir): ";
-            cin >> codigo;
-
-            while(codigo != 0){
-                if(existePrestatario(inicioPrestatario, codigo) == true){
-                    nuevo->prestamo.prestatario.codigoPrestatario = codigo;
-                    for(NodoPrestatario * i = inicioPrestatario; i != nullptr; i = i->sigPrestatario){
-                        if(i->prestatario.codigoPrestatario == codigo){
-                            nuevo->prestamo.prestatario.nombre = i->prestatario.nombre;
-                            nuevo->prestamo.prestatario.apellido = i->prestatario.apellido;
-                        }
-                    }
-                    cout << "Ingrese la descripcion del prestamo: ";
-                    cin >> descripcion;
-                    nuevo->prestamo.descripcion = descripcion;
-                    nuevo->prestamo.estado = true;
-                    
-                    cout << "Prestamo agregado con exito" << endl;
-
-                    imprimirPrestamo(nuevo);
-                    inicioPrestamo=guardarPrestamo(inicioPrestamo, nuevo);
-                    break;
-                }
-                else{
-                    cout << "Ingrese un codigo valido" << endl;
-                }
-                cout << "Ingrese el codigo del prestatario(0 para salir): ";
-                cin >> codigo;
-            }
-            break;
-        case 'x':
-        {
-            cout << "Saliendo..." << endl;
-            }
-            break;
-        default:
-            cout << "Opcion invalida" << endl;
-            break;
+        else{
+            cout << "Opcion incorrecta, vuelva a intentarlo (S/N) (X para salir): ";
+            cin >> opcion;
+            opcion = toupper(opcion);
         }  
-    
     }
     return inicioPrestamo;
 }
-
 // *****************************************************************************************************
-NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo, int codigo, string descripcion){
+NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo){
     cout << "Modificar prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
 
@@ -644,7 +574,7 @@ NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPresta
 }
 
 // *****************************************************************************************************
-NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int codigo){
+NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario){
     cout << "Eliminar prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
     cout << "Ingrese el codigo del prestatario (0 para salir): ";
@@ -697,7 +627,7 @@ NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
 }
 
 // *****************************************************************************************************
-NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario, int codigo){
+NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario){
     cout << "Devolver prestamo" << endl;
     mostrarPrestatarios(inicioPrestatario);
     cout << "Ingrese el codigo del prestatario (0 para salir): ";
@@ -784,7 +714,7 @@ void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * ini
 }
 // *****************************************************************************************************
 
-void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo, int codigo){
+void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo){
     cout << "Listado de prestamos pendientes por categoria" << endl;
     mostrarCategorias(inicioCategoria);
     cout << "*****************" << endl;
@@ -817,7 +747,7 @@ void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatari
 }
 
 // *****************************************************************************************************
-void listadoPrestamosPorPrestatario(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo, char opcion, int codigo){
+void listadoPrestamosPorPrestatario(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo){
     cout << "Listado de prestamos por prestatario" << endl;
     cout << "   ¿Desea ver el listado por categoria(C) o Prestatario(P)?(X para salir) :";
     cin >> opcion;
@@ -912,22 +842,22 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        inicioCategoria = agregarCategoria(inicioCategoria, codCategoria, descripcion, codCategoria);
+                        inicioCategoria = agregarCategoria(inicioCategoria, codCategoria);
                         break;
                     case 'b':
-                        inicioCategoria = modificarCategoria(inicioCategoria, codCategoria, descripcion);
+                        inicioCategoria = modificarCategoria(inicioCategoria);
                         break;
                     case 'c':
-                        inicioCategoria = eliminarCategoria(inicioCategoria, inicioPrestamo, codigo);           
+                        inicioCategoria = eliminarCategoria(inicioCategoria, inicioPrestamo);           
                         break;
                     case 'd':
-                        inicioPrestatario = agregarPrestatario(inicioPrestatario, nombre, apellido, codPrestatario);
+                        inicioPrestatario = agregarPrestatario(inicioPrestatario, codPrestatario);
                         break;
                     case 'e':
-                        inicioPrestatario = modificarPrestatario(inicioPrestatario, codigo, nombre, apellido);
+                        inicioPrestatario = modificarPrestatario(inicioPrestatario);
                         break;
                     case 'f':
-                        inicioPrestatario = eliminarPrestatario(inicioPrestatario, inicioPrestamo, codigo);
+                        inicioPrestatario = eliminarPrestatario(inicioPrestatario, inicioPrestamo);
                         break;
                     case 'x':
                         break;
@@ -951,16 +881,16 @@ int main(){
                     switch (tolower(opcion))
                     {
                     case 'a':
-                        inicioPrestamo = agregarPrestamo(inicioPrestamo, inicioCategoria, inicioPrestatario, opcion, codigo, descripcion);                
+                        inicioPrestamo = agregarPrestamo(inicioPrestamo, inicioCategoria, inicioPrestatario);                
                         break;
                     case 'b':
-                        inicioPrestamo = modificarPrestamo(inicioPrestatario, inicioPrestamo, codigo, descripcion);
+                        inicioPrestamo = modificarPrestamo(inicioPrestatario, inicioPrestamo);
                         break;
                     case 'c':
-                        inicioPrestamo = eliminarPrestamo(inicioPrestamo, inicioPrestatario, codigo);
+                        inicioPrestamo = eliminarPrestamo(inicioPrestamo, inicioPrestatario);
                         break;
                     case 'd':
-                        inicioPrestamo = devolverPrestamo(inicioPrestamo, inicioPrestatario, codigo);
+                        inicioPrestamo = devolverPrestamo(inicioPrestamo, inicioPrestatario);
                         break;
                     case 'e':
                         break;
@@ -987,10 +917,10 @@ int main(){
                         cantObjetosPorCategoria(inicioCategoria, inicioPrestamo);
                         break;
                     case 'b':
-                        listadoPrestamosPorCategoria(inicioCategoria, inicioPrestatario, inicioPrestamo, codigo);
+                        listadoPrestamosPorCategoria(inicioCategoria, inicioPrestatario, inicioPrestamo);
                         break;
                     case 'c':
-                        listadoPrestamosPorPrestatario(inicioCategoria, inicioPrestatario, inicioPrestamo, opcion,codigo);
+                        listadoPrestamosPorPrestatario(inicioCategoria, inicioPrestatario, inicioPrestamo);
                         break;
                     case 'd':
                         prestatariosConobjetosPrestados(inicioPrestamo, inicioPrestatario);
