@@ -1,6 +1,6 @@
+*.gitignore
 # Prerequisites
 *.d
-*.gitignore
 
 # Compiled Object files
 *.slo
