@@ -200,7 +200,6 @@ NodoCategoria * modificarCategoria(NodoCategoria * inicioCategoria){
     return inicioCategoria;  
 }
 // *****************************************************************************************************
-
 NodoCategoria * eliminarCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * inicioPrestamo){
     cout << "Eliminar categoria" << endl;
 
@@ -247,7 +246,6 @@ NodoCategoria * eliminarCategoria(NodoCategoria * inicioCategoria, NodoPrestamo 
     }
     return inicioCategoria;
 }
-
 // *****************************************************************************************************
 NodoPrestatario * agregarPrestatario(NodoPrestatario *&inicioPrestatario,  int &codPrestatario){
     cout << "Agregar prestatario" << endl;
@@ -277,7 +275,6 @@ NodoPrestatario * agregarPrestatario(NodoPrestatario *&inicioPrestatario,  int &
     }
     return inicioPrestatario;
 }
-
 // *****************************************************************************************************
 NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario){
     cout << "Modificar prestatario" << endl;
@@ -328,7 +325,6 @@ NodoPrestatario * modificarPrestatario(NodoPrestatario * inicioPrestatario){
     }
     return inicioPrestatario;
 }
-
 // *****************************************************************************************************
 NodoPrestatario * eliminarPrestatario(NodoPrestatario *&inicioPrestatario, NodoPrestamo *&inicioPrestamo){
     cout << "Eliminar prestatario" << endl;
@@ -373,7 +369,6 @@ NodoPrestatario * eliminarPrestatario(NodoPrestatario *&inicioPrestatario, NodoP
     }
     return inicioPrestatario;
 }
-
 // *****************************************************************************************************
 // *****************************************************************************************************
 // Opcion 2 = Administrar Préstamos
@@ -439,8 +434,7 @@ void mostrarPrestamosFinalizados(NodoPrestamo * inicioPrestamo, int codigo){
 
 // *****************************************************************************************************
 // *****************************************************************************************************
-// Funciones principales de opcion 2
-
+// Funciones principales de opcion 
 NodoPrestamo * agregarPrestamo(NodoPrestamo * inicioPrestamo, NodoCategoria * inicioCategoria, NodoPrestatario * inicioPrestatario){
     cout << "Agregar prestamo" << endl;
     cout << "Desea ver las categorias existentes? (S/N) (X para salir): ";
@@ -572,7 +566,6 @@ NodoPrestamo * modificarPrestamo(NodoPrestatario * inicioPrestatario, NodoPresta
     }
     return inicioPrestamo;
 }
-
 // *****************************************************************************************************
 NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario){
     cout << "Eliminar prestamo" << endl;
@@ -625,7 +618,6 @@ NodoPrestamo * eliminarPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
     }
     return inicioPrestamo;
 }
-
 // *****************************************************************************************************
 NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario * inicioPrestatario){
     cout << "Devolver prestamo" << endl;
@@ -676,11 +668,9 @@ NodoPrestamo * devolverPrestamo(NodoPrestamo * inicioPrestamo, NodoPrestatario *
         cin >> codigo;
     }
     return inicioPrestamo;
-}
-    
+}  
 // *****************************************************************************************************
 // *****************************************************************************************************
-
 // Opcion 3 = Consultar Préstamos
 // Funciones secundarias de la opcion 3
 int contadorPrestamosPendientes( NodoPrestamo * inicioPrestamo){
@@ -713,7 +703,6 @@ void cantObjetosPorCategoria(NodoCategoria * inicioCategoria, NodoPrestamo * ini
     cout << "****************" << endl;
 }
 // *****************************************************************************************************
-
 void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo){
     cout << "Listado de prestamos pendientes por categoria" << endl;
     mostrarCategorias(inicioCategoria);
@@ -745,7 +734,6 @@ void listadoPrestamosPorCategoria(NodoCategoria * inicioCategoria,NodoPrestatari
         cin >> codigo;
     }
 }
-
 // *****************************************************************************************************
 void listadoPrestamosPorPrestatario(NodoCategoria * inicioCategoria,NodoPrestatario * inicioPrestatario, NodoPrestamo * inicioPrestamo){
     cout << "Listado de prestamos por prestatario" << endl;
@@ -789,7 +777,6 @@ void listadoPrestamosPorPrestatario(NodoCategoria * inicioCategoria,NodoPrestata
         cout << "Opcion incorrecta" << endl;
     }
 }
-
 // *****************************************************************************************************
 void prestatariosConobjetosPrestados(NodoPrestamo * inicioPrestamo,NodoPrestatario * inicioPrestatario){
     cout << "Prestatarios con objetos prestados" << endl;
@@ -809,14 +796,12 @@ void prestatariosConobjetosPrestados(NodoPrestamo * inicioPrestamo,NodoPrestatar
     }
 }
 //*####################################################################################################
-
 // funcion principal
 int main(){
     //Listas
     NodoCategoria* inicioCategoria = nullptr;
     NodoPrestamo * inicioPrestamo = nullptr;
     NodoPrestatario * inicioPrestatario= nullptr;
-
         do{
             cout << "1. Administrar y consultar Categorías y Prestatarios" << endl;
             cout << "2. Administrar Préstamos" << endl;
